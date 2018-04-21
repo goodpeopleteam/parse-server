@@ -4,7 +4,8 @@
   "description": "server",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon src/index.js --exec babel-node"
+    "dev": "nodemon src/index.js --exec babel-node",
+    "start": "babel-node $NODE_DEBUG_OPTION src/index.js"
   },
   "dependencies": {
     "express": "^4.16.2",

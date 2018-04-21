@@ -1,9 +1,10 @@
+const fetch = require('node-fetch');
+
 module.exports = class Profile {
     constructor(args = {}) {
         this.id = args.id;
         this.firstName = args.firstName;
         this.lastName = args.lastName;
-        this.profilePictureUrl = args.profilePictureUrl;
         this.about = args.about;
         this.skills = args.skills;
         this.location = {
@@ -18,16 +19,33 @@ module.exports = class Profile {
             id: x.id,
             firstName: x.get('firstName'),
             lastName: x.get('lastName'),
-            profilePictureUrl: this.getProfilePictureUrl(x.get('facebookId')),
             about: x.get('about'),
             country: x.get('country'),
             city: x.get('city'),
             skills: x.get('skills'),
-            location: x.get('location')
+            location: x.get('location'),
         });
     }
 
-    static getProfilePictureUrl(facebookId) {
-        return `http://graph.facebook.com/${facebookId}/picture?type=large`;
+    static getFacebookPicture(facebookId) {
+        return fetch(this.getFacebookPictureUrl(facebookId))
+            .then(res => res.buffer())
+            .then(buffer => Buffer.from(buffer).toString('base64'))
+            .catch(e => {
+                console.log(e)
+            });
+    }
+
+    static getFacebookPictureUrl(facebookId) {
+        return `https://graph.facebook.com/${facebookId}/picture?type=large`;
+    }
+
+    static getCustomPicture(profile) {
+        const file = profile.get('profilePicture');
+        if (!file)
+            return "";
+
+        return Parse.Cloud.httpRequest({ url: file.url() })
+            .then(response => Buffer.from(response.buffer).toString('base64'));
     }
 };

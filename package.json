@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "express": "^4.16.2",
+    "node-fetch": "^2.1.2",
     "parse-server": "^2.7.1"
   },
   "devDependencies": {

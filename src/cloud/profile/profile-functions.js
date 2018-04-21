@@ -1,10 +1,14 @@
 const Profile = require('../domain/model/Profile');
 
-module.exports.get = (req, res) => {
+function createUserQuery() {
     const User = Parse.Object.extend('User');
-    const query = new Parse.Query(User);
+    return new Parse.Query(User);
+}
 
-    query.limit(10);
+module.exports.get = (req, res) => {
+    const query = createUserQuery();
+
+    query.limit(5);
 
     query.find()
         .then(profiles => profiles.map(p => Profile.mapFromParse(p)))
@@ -14,10 +18,27 @@ module.exports.get = (req, res) => {
 module.exports.getById = (req, res) => {
     const id = req.params.id;
 
-    const User = Parse.Object.extend('User');
-    const query = new Parse.Query(User);
+    const query = createUserQuery();
+
+    query.descending('created_at');
 
     query.get(id)
         .then(p => Profile.mapFromParse(p))
         .then(profile => res.success(profile));
+};
+
+module.exports.getProfilePicture = (req, res) => {
+    const id = req.params.id;
+    const facebookId = req.params.facebookId;
+
+    if (facebookId)
+        Profile.getFacebookPicture(facebookId)
+            .then(content => res.success(content));
+    else {
+        const query = createUserQuery();
+
+        query.get(id)
+            .then(p => Profile.getCustomPicture(p))
+            .then(content => res.success(content));
+    }
 };

@@ -12,12 +12,12 @@ export const get = (req, res) => {
 };
 
 export const getById = (req, res) => {
-    const profileId = req.params.profileId;
+    const id = req.params.id;
 
     const User = Parse.Object.extend('User');
     const query = new Parse.Query(User);
 
-    query.get(profileId)
+    query.get(id)
         .then(p => Profile.mapFromParse(p))
         .then(profile => res.success(profile));
 };

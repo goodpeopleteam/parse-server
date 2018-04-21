@@ -1,5 +1,5 @@
-import express from 'express';
-import * as Parse from 'parse-server';
+const express = require('express');
+const Parse = require('parse-server');
 
 const app = express();
 

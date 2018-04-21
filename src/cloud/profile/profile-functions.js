@@ -1,6 +1,6 @@
-import Profile from '../domain/model/Profile';
+const Profile = require('../domain/model/Profile');
 
-export const get = (req, res) => {
+module.exports.get = (req, res) => {
     const User = Parse.Object.extend('User');
     const query = new Parse.Query(User);
 
@@ -11,7 +11,7 @@ export const get = (req, res) => {
         .then(profiles => res.success(profiles));
 };
 
-export const getById = (req, res) => {
+module.exports.getById = (req, res) => {
     const id = req.params.id;
 
     const User = Parse.Object.extend('User');

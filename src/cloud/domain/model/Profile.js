@@ -1,4 +1,4 @@
-export default class Profile {
+module.exports = class Profile {
     constructor(args = {}) {
         this.id = args.id;
         this.firstName = args.firstName;
@@ -30,4 +30,4 @@ export default class Profile {
     static getProfilePictureUrl(facebookId) {
         return `http://graph.facebook.com/${facebookId}/picture?type=large`;
     }
-}
+};

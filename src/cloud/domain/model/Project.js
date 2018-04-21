@@ -1,4 +1,4 @@
-export default class Project {
+module.exports = class Project {
     constructor(args = {}) {
         this.id = args.id;
         this.title = args.title;
@@ -19,4 +19,4 @@ export default class Project {
             skillsNeeded
         });
     }
-}
+};

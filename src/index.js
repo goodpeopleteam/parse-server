@@ -4,7 +4,7 @@ const Parse = require('parse-server');
 const app = express();
 
 const api = Parse.ParseServer({
-    databaseURI: 'mongodb://admin:Thegoodthepeople17@ds155718.mlab.com:55718/goodpeople-dev',
+    databaseURI: process.env.DB_ENDPOINT,
     cloud: './src/cloud/index.js',
     appId: 'app_id',
     masterKey: 'master_key',

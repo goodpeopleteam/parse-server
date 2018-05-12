@@ -1,6 +1,11 @@
 const QueryCreator = require('../domain/helpers/QueryCreator');
 const Profile = require('../domain/model/Profile');
 
+function createUserQuery() {
+    const User = Parse.Object.extend('User');
+    return new Parse.Query(User);
+}
+
 module.exports.profileCreate = (req, res) => {
     const p = req.params.profile;
 
@@ -51,9 +56,15 @@ module.exports.upsertTalents = (req, res) => {
 };
 
 module.exports.get = (req, res) => {
-    const query = QueryCreator.createQuery('User');
+    const page = req.params.page;
 
-    query.limit(5);
+    const pageSize = 5;
+
+    const query = createUserQuery();
+
+    query.limit(pageSize);
+    query.skip(page * pageSize);
+    query.descending('createdAt');
 
     query.find()
         .then(profiles => profiles.map(p => Profile.mapFromParse(p)))
@@ -64,8 +75,6 @@ module.exports.getById = (req, res) => {
     const id = req.params.id;
 
     const query = QueryCreator.createQuery('User');
-
-    query.descending('created_at');
 
     query.get(id)
         .then(p => Profile.mapFromParse(p))

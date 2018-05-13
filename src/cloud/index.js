@@ -1,3 +1,4 @@
+const ProfileCreate = require('./profile/profile-functions').profileCreate;
 const ProfileGet = require('./profile/profile-functions').get;
 const ProfileGetById = require('./profile/profile-functions').getById;
 const ProfileGetPicture = require('./profile/profile-functions').getProfilePicture;
@@ -5,6 +6,7 @@ const ProfileGetPicture = require('./profile/profile-functions').getProfilePictu
 const ProjectGet = require('./project/project-functions').get;
 const ProjectGetById = require('./project/project-functions').getById;
 
+Parse.Cloud.define('Profile.create', ProfileCreate);
 Parse.Cloud.define('Profile.get', ProfileGet);
 Parse.Cloud.define('Profile.getById', ProfileGetById);
 Parse.Cloud.define('Profile.getPicture', ProfileGetPicture);

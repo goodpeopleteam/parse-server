@@ -1,12 +1,31 @@
 const Profile = require('../domain/model/Profile');
 
-function createUserQuery() {
-    const User = Parse.Object.extend('User');
-    return new Parse.Query(User);
+function createQuery(className) {
+    const ClassName = Parse.Object.extend(className);
+    return new Parse.Query(ClassName);
 }
 
+module.exports.profileCreate = (req, res) => {
+    const p = req.params.profile;
+
+    createQuery('User')
+        .get(p.userId)
+        .then(user => {
+            const ParseProfile = Parse.Object.extend('Profile');
+            const profile = new ParseProfile();
+
+            profile.set('user', user);
+            profile.set('firstName', p.firstName);
+            profile.set('lastName', p.lastName);
+
+            profile.save()
+                .then(profile => res.success(Profile.mapFromParse(profile)))
+                .catch(e => res.error(e))
+        }).catch(e => res.error(e));
+};
+
 module.exports.get = (req, res) => {
-    const query = createUserQuery();
+    const query = createQuery('User');
 
     query.limit(5);
 
@@ -18,7 +37,7 @@ module.exports.get = (req, res) => {
 module.exports.getById = (req, res) => {
     const id = req.params.id;
 
-    const query = createUserQuery();
+    const query = createQuery('User');
 
     query.descending('created_at');
 
@@ -35,7 +54,7 @@ module.exports.getProfilePicture = (req, res) => {
         Profile.getFacebookPicture(facebookId)
             .then(content => res.success(content));
     else {
-        const query = createUserQuery();
+        const query = createQuery('User');
 
         query.get(id)
             .then(p => Profile.getCustomPicture(p))

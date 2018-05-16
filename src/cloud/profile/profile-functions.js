@@ -39,6 +39,21 @@ module.exports.upsertAbout = (req, res) => {
         }).catch(e => res.error(e))
 };
 
+module.exports.upsertTalents = (req, res) => {
+    const profileId = req.params.profileId;
+    const talents = req.params.talents;
+
+    createQuery('Profile')
+        .get(profileId)
+        .then(p => {
+            p.set('talents', talents);
+
+            p.save()
+                .then(p => res.success(Profile.mapFromParse(p)))
+                .catch(e => res.error(e))
+        }).catch(e => res.error(e))
+};
+
 module.exports.get = (req, res) => {
     const query = createQuery('User');
 

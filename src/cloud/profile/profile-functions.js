@@ -24,6 +24,21 @@ module.exports.profileCreate = (req, res) => {
         }).catch(e => res.error(e));
 };
 
+module.exports.upsertAbout = (req, res) => {
+    const profileId = req.params.profileId;
+    const about = req.params.about;
+
+    createQuery('Profile')
+        .get(profileId)
+        .then(p => {
+            p.set('about', about);
+
+            p.save()
+                .then(p => res.success(Profile.mapFromParse(p)))
+                .catch(e => res.error(e))
+        }).catch(e => res.error(e))
+};
+
 module.exports.get = (req, res) => {
     const query = createQuery('User');
 

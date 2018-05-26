@@ -1,14 +1,10 @@
+const QueryCreator = require('../domain/helpers/QueryCreator');
 const Profile = require('../domain/model/Profile');
-
-function createQuery(className) {
-    const ClassName = Parse.Object.extend(className);
-    return new Parse.Query(ClassName);
-}
 
 module.exports.profileCreate = (req, res) => {
     const p = req.params.profile;
 
-    createQuery('User')
+    QueryCreator.createQuery('User')
         .get(p.userId)
         .then(user => {
             const ParseProfile = Parse.Object.extend('Profile');
@@ -28,7 +24,7 @@ module.exports.upsertAbout = (req, res) => {
     const profileId = req.params.profileId;
     const about = req.params.about;
 
-    createQuery('Profile')
+    QueryCreator.createQuery('Profile')
         .get(profileId)
         .then(p => {
             p.set('about', about);
@@ -43,7 +39,7 @@ module.exports.upsertTalents = (req, res) => {
     const profileId = req.params.profileId;
     const talents = req.params.talents;
 
-    createQuery('Profile')
+    QueryCreator.createQuery('Profile')
         .get(profileId)
         .then(p => {
             p.set('talents', talents);
@@ -55,7 +51,7 @@ module.exports.upsertTalents = (req, res) => {
 };
 
 module.exports.get = (req, res) => {
-    const query = createQuery('User');
+    const query = QueryCreator.createQuery('User');
 
     query.limit(5);
 
@@ -67,7 +63,7 @@ module.exports.get = (req, res) => {
 module.exports.getById = (req, res) => {
     const id = req.params.id;
 
-    const query = createQuery('User');
+    const query = QueryCreator.createQuery('User');
 
     query.descending('created_at');
 
@@ -84,7 +80,7 @@ module.exports.getProfilePicture = (req, res) => {
         Profile.getFacebookPicture(facebookId)
             .then(content => res.success(content));
     else {
-        const query = createQuery('User');
+        const query = QueryCreator.createQuery('User');
 
         query.get(id)
             .then(p => Profile.getCustomPicture(p))

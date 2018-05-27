@@ -1,14 +1,16 @@
 const QueryCreator = require('../domain/helpers/QueryCreator');
 const Project = require('../domain/model/Project');
-const CLASS_NAME = 'Project';
+
+const PROJECT_CLASS_NAME = 'Project';
+const USER_CLASS_NAME = 'User';
 
 module.exports.create = (req, res) => {
     const userId = req.params.userId;
     const projectParam = req.params.project;
 
-    const ParseProject = Parse.Object.extend(CLASS_NAME);
+    const ParseProject = Parse.Object.extend(PROJECT_CLASS_NAME);
 
-    QueryCreator.createQuery('User')
+    QueryCreator.createQuery(USER_CLASS_NAME)
         .get(userId)
         .then(user => {
             const p = new ParseProject();
@@ -25,7 +27,7 @@ module.exports.create = (req, res) => {
 };
 
 module.exports.get = (req, res) => {
-    const ParseProject = Parse.Object.extend(CLASS_NAME);
+    const ParseProject = Parse.Object.extend(PROJECT_CLASS_NAME);
     const query = new Parse.Query(ParseProject);
 
     query.limit(10);
@@ -38,10 +40,29 @@ module.exports.get = (req, res) => {
 module.exports.getById = (req, res) => {
     const id = req.params.id;
 
-    const ParseProject = Parse.Object.extend(CLASS_NAME);
+    const ParseProject = Parse.Object.extend(PROJECT_CLASS_NAME);
     const query = new Parse.Query(ParseProject);
 
     query.get(id)
         .then(p => Project.mapFromParse(p))
         .then(project => res.success(project));
+};
+
+module.exports.myProjects = (req, res) => {
+    const userId = req.params.userId;
+
+    const projectQuery = QueryCreator.createQuery(PROJECT_CLASS_NAME);
+    const userQuery = QueryCreator.createQuery(USER_CLASS_NAME);
+
+    userQuery
+        .get(userId)
+        .then(user => {
+            projectQuery.equalTo('user', user);
+            projectQuery.descending('create_at');
+
+            projectQuery
+                .find()
+                .then(projects => res.success(projects.map(Project.mapFromParse)))
+                .catch(e => res.error(e))
+        }).catch(e => res.error(e))
 };

@@ -50,10 +50,15 @@ async function processProfileForUser(u, status, logger) {
     const Profile = Parse.Object.extend('Profile');
     const p = new Profile();
 
+    p.set('facebookId', u.get('facebookId'));
     p.set('firstName', u.get('firstName'));
     p.set('lastName', u.get('lastName'));
-    p.set('talents', u.get('skills'));
     p.set('about', u.get('about'));
+    p.set('profilePicture', u.get('profilePicture'));
+    p.set('talents', u.get('skills'));
+    p.set('location', u.get('location'));
+    p.set('country', u.get('country'));
+    p.set('city', u.get('city'));
     p.set('user', u);
 
     return await p.save();

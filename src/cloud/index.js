@@ -16,6 +16,7 @@ const FavoriteMyFavorites = require('./favorite/favorite-functions').myFavorites
 
 // jobs
 const MapProfiles = require('./jobs/ProfileJobs').MapProfiles;
+const FixProjecProfileReference = require('./jobs/ProjectJobs').FixProjectProfileReference;
 
 Parse.Cloud.define('Profile.create', ProfileCreate);
 Parse.Cloud.define('Profile.upsertAbout', ProfileUpsertAbout);
@@ -34,3 +35,4 @@ Parse.Cloud.define('Favorite.hasFavorite', FavoriteHasFavorite);
 Parse.Cloud.define('Favorite.myFavorites', FavoriteMyFavorites);
 
 Parse.Cloud.job('mapProfiles', MapProfiles);
+Parse.Cloud.job('fixProjectProfileReference', FixProjecProfileReference);

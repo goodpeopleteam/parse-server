@@ -5,26 +5,31 @@ const PROJECT_CLASS_NAME = 'Projects';
 const USER_CLASS_NAME = 'User';
 const PROFILE_CLASS_NAME = 'Profile';
 
-module.exports.create = (req, res) => {
+module.exports.create = async (req, res) => {
     const userId = req.params.userId;
     const projectParam = req.params.project;
 
+    const user = new Parse.User();
+    user.id = userId;
+
+    const userQuery = QueryCreator.createQuery(USER_CLASS_NAME);
+
+    const profileQuery = QueryCreator.createQuery(PROFILE_CLASS_NAME);
+    profileQuery.equalTo('user', user);
+
+    const result = await Parse.Promise.when([userQuery.get(userId), profileQuery.first()]);
+
     const ParseProject = Parse.Object.extend(PROJECT_CLASS_NAME);
+    const p = new ParseProject();
 
-    QueryCreator.createQuery(USER_CLASS_NAME)
-        .get(userId)
-        .then(user => {
-            const p = new ParseProject();
+    p.set('title', projectParam.title);
+    p.set('description', projectParam.description);
+    p.set('requiredTalents', projectParam.requiredTalents);
+    p.set('user', result[0]);
+    p.set('profile', result[1]);
 
-            p.set('title', projectParam.title);
-            p.set('description', projectParam.description);
-            p.set('requiredTalents', projectParam.requiredTalents);
-            p.set('user', user);
-
-            p.save()
-                .then(p => res.success(Project.mapFromParse(p)))
-                .catch(e => res.error(e))
-        }).catch(e => res.error(e))
+    const project = await p.save();
+    res.success(project);
 };
 
 module.exports.get = async (req, res) => {

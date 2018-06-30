@@ -1,7 +1,7 @@
 const QueryCreator = require('../domain/helpers/QueryCreator');
 const Project = require('../domain/model/Project');
 
-const PROJECT_CLASS_NAME = 'Project';
+const PROJECT_CLASS_NAME = 'Projects';
 const USER_CLASS_NAME = 'User';
 
 module.exports.create = (req, res) => {

@@ -3,14 +3,14 @@ module.exports = class Project {
         const id = project.id;
         const title = project.get('title');
         const description = project.get('description');
-        const requiredTalents = project.get('requiredTalents');
+        const skillsNeeded = project.get('skillsNeeded') || [];
 
         if (!profile) {
             return {
                 id,
                 title,
                 description,
-                requiredTalents
+                requiredTalents: skillsNeeded
             };
         }
 
@@ -18,7 +18,7 @@ module.exports = class Project {
             id,
             title,
             description,
-            requiredTalents,
+            requiredTalents: skillsNeeded,
             profile: {
                 id: profile.id,
                 firstName: profile.get('firstName'),

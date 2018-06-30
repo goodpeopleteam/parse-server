@@ -28,16 +28,22 @@ module.exports.create = (req, res) => {
 };
 
 module.exports.get = async (req, res) => {
-    const ParseProject = Parse.Object.extend(PROJECT_CLASS_NAME);
-    const query = new Parse.Query(ParseProject);
+    const projectQuery = QueryCreator.createQuery(PROJECT_CLASS_NAME);
 
-    query.limit(10);
+    projectQuery.limit(10);
 
     try {
-        const parseProjects = await query.find();
-        const projects = parseProjects.map(p => Project.mapFromParse(p));
+        const parseProjects = await projectQuery.find();
+        const mappedProjects = [];
 
-        res.success(projects);
+        for (let i = 0; i < parseProjects.length; i++) {
+            const parseProject = parseProjects[i];
+            const projectProfile = await parseProject.get('profile').fetch();
+
+            mappedProjects.push(Project.mapFromParse(parseProject, projectProfile));
+        }
+
+        res.success(mappedProjects);
     } catch (e) {
         res.error(e.message);
     }

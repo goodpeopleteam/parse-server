@@ -3,6 +3,7 @@ const Project = require('../domain/model/Project');
 
 const PROJECT_CLASS_NAME = 'Projects';
 const USER_CLASS_NAME = 'User';
+const PROFILE_CLASS_NAME = 'Profile';
 
 module.exports.create = (req, res) => {
     const userId = req.params.userId;
@@ -52,24 +53,21 @@ module.exports.getById = (req, res) => {
 module.exports.myProjects = async (req, res) => {
     const userId = req.params.userId;
 
-    const userQuery = QueryCreator.createQuery(USER_CLASS_NAME);
-    try {
-        const user = await userQuery.get(userId);
+    const projectQuery = QueryCreator.createQuery(PROJECT_CLASS_NAME);
+    const profileQuery = QueryCreator.createQuery(PROFILE_CLASS_NAME);
 
-        const projectUserRelationQuery = QueryCreator.createQuery(PROJECT_CLASS_NAME);
-        projectUserRelationQuery.equalTo('user', user);
+    const user = new Parse.User();
+    user.id = userId;
 
-        const projectUserIdRelationQuery = QueryCreator.createQuery(PROJECT_CLASS_NAME);
-        projectUserIdRelationQuery.equalTo('userID', user.id);
+    profileQuery.equalTo('user', user);
 
-        const projectQuery = Parse.Query.or(projectUserRelationQuery, projectUserIdRelationQuery);
+    projectQuery.equalTo('user', user);
+    projectQuery.descending('createdAt');
 
-        const parseProjects = await projectQuery.find();
-        const projects = parseProjects.map(Project.mapFromParse);
+    const result = await Parse.Promise.when([profileQuery.first(), projectQuery.find()]);
 
-        res.success(projects);
+    const profile = result[0];
+    const parseProjects = result[1];
 
-    } catch (e) {
-        res.error(e);
-    }
+    res.success(parseProjects.map(p => Project.mapFromParse(p, profile)));
 };

@@ -33,10 +33,14 @@ module.exports.get = async (req, res) => {
 
     query.limit(10);
 
-    const parseProjects = await query.find();
-    const projects = parseProjects.map(p => Project.mapFromParse(p));
+    try {
+        const parseProjects = await query.find();
+        const projects = parseProjects.map(p => Project.mapFromParse(p));
 
-    res.success(projects);
+        res.success(projects);
+    } catch (e) {
+        res.error(e.message);
+    }
 };
 
 module.exports.getById = (req, res) => {

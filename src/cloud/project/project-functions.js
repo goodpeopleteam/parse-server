@@ -49,21 +49,27 @@ module.exports.getById = (req, res) => {
         .then(project => res.success(project));
 };
 
-module.exports.myProjects = (req, res) => {
+module.exports.myProjects = async (req, res) => {
     const userId = req.params.userId;
 
-    const projectQuery = QueryCreator.createQuery(PROJECT_CLASS_NAME);
     const userQuery = QueryCreator.createQuery(USER_CLASS_NAME);
+    try {
+        const user = await userQuery.get(userId);
 
-    userQuery
-        .get(userId)
-        .then(user => {
-            projectQuery.equalTo('user', user);
-            projectQuery.descending('create_at');
+        const projectUserRelationQuery = QueryCreator.createQuery(PROJECT_CLASS_NAME);
+        projectUserRelationQuery.equalTo('user', user);
 
-            projectQuery
-                .find()
-                .then(projects => res.success(projects.map(Project.mapFromParse)))
-                .catch(e => res.error(e))
-        }).catch(e => res.error(e))
+        const projectUserIdRelationQuery = QueryCreator.createQuery(PROJECT_CLASS_NAME);
+        projectUserIdRelationQuery.equalTo('userID', user.id);
+
+        const projectQuery = Parse.Query.or(projectUserRelationQuery, projectUserIdRelationQuery);
+
+        const parseProjects = await projectQuery.find();
+        const projects = parseProjects.map(Project.mapFromParse);
+
+        res.success(projects);
+
+    } catch (e) {
+        res.error(e);
+    }
 };

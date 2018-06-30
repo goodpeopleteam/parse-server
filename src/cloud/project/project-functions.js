@@ -26,15 +26,16 @@ module.exports.create = (req, res) => {
         }).catch(e => res.error(e))
 };
 
-module.exports.get = (req, res) => {
+module.exports.get = async (req, res) => {
     const ParseProject = Parse.Object.extend(PROJECT_CLASS_NAME);
     const query = new Parse.Query(ParseProject);
 
     query.limit(10);
 
-    query.find()
-        .then(projects => projects.map(p => Project.mapFromParse(p)))
-        .then(projects => res.success(projects));
+    const parseProjects = await query.find();
+    const projects = parseProjects.map(p => Project.mapFromParse(p));
+
+    res.success(projects);
 };
 
 module.exports.getById = (req, res) => {

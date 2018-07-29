@@ -11,6 +11,7 @@ const ProjectGetById = require('./project/project-functions').getById;
 const ProjectMyProjects = require('./project/project-functions').myProjects;
 
 const FavoriteAdd = require('./favorite/favorite-functions').add;
+const FavoriteHasFavorite = require('./favorite/favorite-functions').hasFavorite;
 
 Parse.Cloud.define('Profile.create', ProfileCreate);
 Parse.Cloud.define('Profile.upsertAbout', ProfileUpsertAbout);
@@ -25,3 +26,4 @@ Parse.Cloud.define('Project.getById', ProjectGetById);
 Parse.Cloud.define('Project.myProjects', ProjectMyProjects);
 
 Parse.Cloud.define('Favorite.add', FavoriteAdd);
+Parse.Cloud.define('Favorite.hasFavorite', FavoriteHasFavorite);

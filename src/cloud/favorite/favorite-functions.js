@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const QueryCreator = require('../domain/helpers/QueryCreator');
 
 const USER_FAVORITE_CLASS_NAME = 'UserFavorite';
@@ -31,6 +32,27 @@ module.exports.add = async (req, res) => {
         }
 
         res.success('success');
+    } catch (e) {
+        res.error(e.message);
+    }
+};
+
+module.exports.hasFavorite = async (req, res) => {
+    const userId = req.user.id;
+    const favoriteId = req.params.favoriteId;
+
+    try {
+        const userFavoriteQuery = QueryCreator.createQuery(USER_FAVORITE_CLASS_NAME);
+        userFavoriteQuery.equalTo('userId', userId);
+
+        const existingFavorite = await userFavoriteQuery.first();
+
+        if (!existingFavorite) {
+            res.success(false);
+        } else {
+            const isFavorite = _.find(existingFavorite.get('favorites'), f => f.id === favoriteId);
+            res.success(isFavorite);
+        }
     } catch (e) {
         res.error(e.message);
     }

@@ -1,5 +1,3 @@
-const fetch = require('node-fetch');
-
 module.exports = class Profile {
     constructor(args = {}) {
         this.id = args.id;
@@ -42,25 +40,7 @@ module.exports = class Profile {
         }
     }
 
-    static getFacebookPicture(facebookId) {
-        return fetch(this.getFacebookPictureUrl(facebookId))
-            .then(res => res.buffer())
-            .then(buffer => Buffer.from(buffer).toString('base64'))
-            .catch(e => {
-                console.log(e)
-            });
-    }
-
     static getFacebookPictureUrl(facebookId) {
         return `https://graph.facebook.com/${facebookId}/picture?type=large`;
-    }
-
-    static getCustomPicture(profile) {
-        const file = profile.get('profilePicture');
-        if (!file)
-            return "";
-
-        return Parse.Cloud.httpRequest({url: file.url()})
-            .then(response => Buffer.from(response.buffer).toString('base64'));
     }
 };

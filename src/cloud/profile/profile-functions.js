@@ -6,7 +6,7 @@ function createUserQuery() {
     return new Parse.Query(User);
 }
 
-module.exports.profileCreate = (req, res) => {
+module.exports.create = (req, res) => {
     const p = req.params.profile;
 
     QueryCreator.createQuery('User')

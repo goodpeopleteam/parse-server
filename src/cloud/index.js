@@ -1,4 +1,4 @@
-const ProfileCreate = require('./profile/profile-functions').profileCreate;
+const ProfileCreate = require('./profile/profile-functions').create;
 const ProfileUpsertAbout = require('./profile/profile-functions').upsertAbout;
 const ProfileUpsertTalents = require('./profile/profile-functions').upsertTalents;
 const ProfileGet = require('./profile/profile-functions').get;

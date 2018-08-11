@@ -5,7 +5,7 @@ module.exports = class Profile {
             firstName: x.get('firstName'),
             lastName: x.get('lastName'),
             about: x.get('about'),
-            skills: x.get('skills'),
+            skills: x.get('skills') || [],
             profilePictureUrl: this.getProfilePictureUrl(x),
             location: {
                 location: x.get('location'),

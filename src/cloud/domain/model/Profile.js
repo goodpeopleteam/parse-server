@@ -5,12 +5,12 @@ module.exports = class Profile {
             firstName: x.get('firstName'),
             lastName: x.get('lastName'),
             about: x.get('about'),
-            skills: x.get('skills') || [],
+            skills: x.get('talents') || [],
             profilePictureUrl: this.getProfilePictureUrl(x),
             location: {
                 location: x.get('location'),
-                country: x.get('country') || undefined,
-                city: x.get('city') || undefined,
+                country: x.get('country'),
+                city: x.get('city')
             }
         };
     }

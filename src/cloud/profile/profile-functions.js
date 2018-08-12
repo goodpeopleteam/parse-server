@@ -60,7 +60,7 @@ module.exports.get = (req, res) => {
 
     const pageSize = 5;
 
-    const query = createUserQuery();
+    const query = QueryCreator.createQuery('Profile');
 
     query.limit(pageSize);
     query.skip(page * pageSize);
@@ -74,7 +74,7 @@ module.exports.get = (req, res) => {
 module.exports.getById = (req, res) => {
     const id = req.params.id;
 
-    const query = QueryCreator.createQuery('User');
+    const query = QueryCreator.createQuery('Profile');
 
     query.get(id)
         .then(p => Profile.mapFromParse(p))

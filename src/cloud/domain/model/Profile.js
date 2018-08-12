@@ -2,6 +2,7 @@ module.exports = class Profile {
     static mapFromParse(x) {
         return {
             id: x.id,
+            userId: x.get('user').id,
             firstName: x.get('firstName'),
             lastName: x.get('lastName'),
             about: x.get('about'),

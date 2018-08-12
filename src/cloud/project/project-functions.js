@@ -66,7 +66,7 @@ module.exports.getById = (req, res) => {
 };
 
 module.exports.myProjects = async (req, res) => {
-    const userId = req.params.userId;
+    const userId = req.user.id;
 
     const projectQuery = QueryCreator.createQuery(PROJECT_CLASS_NAME);
     const profileQuery = QueryCreator.createQuery(PROFILE_CLASS_NAME);

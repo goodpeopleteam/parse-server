@@ -3,6 +3,7 @@ module.exports = class Profile {
         return {
             id: x.id,
             userId: x.get('user').id,
+            email: x.get('email'),
             firstName: x.get('firstName'),
             lastName: x.get('lastName'),
             about: x.get('about'),

@@ -2,6 +2,7 @@ const QueryCreator = require('../domain/helpers/QueryCreator');
 const LOG_PREFIX = `JOB: PROFILE_IMPORT:`;
 
 module.exports.MapProfiles = async (req, status) => {
+    req.master = true;
     const logger = req.log;
 
     const pageSize = 100;
@@ -28,7 +29,7 @@ async function getUserBatch(skipValue) {
     userQuery.skip(skipValue);
 
     return await userQuery
-        .find();
+        .find({useMasterKey: true});
 }
 
 async function processUserBatch(users, status, logger) {
@@ -44,13 +45,22 @@ async function processProfileForUser(u, status, logger) {
 
     const profile = await profileQuery.first();
 
-    if (profile)
-        return;
+    if (profile) {
+        const p = createProfileFromUser(profile, u);
+        return await p.save();
+    } else {
+        const Profile = Parse.Object.extend('Profile');
+        const p = new Profile();
 
-    const Profile = Parse.Object.extend('Profile');
-    const p = new Profile();
+        createProfileFromUser(p, u);
 
+        return await p.save();
+    }
+}
+
+function createProfileFromUser(p, u) {
     p.set('facebookId', u.get('facebookId'));
+    p.set('email', u.getEmail());
     p.set('firstName', u.get('firstName'));
     p.set('lastName', u.get('lastName'));
     p.set('about', u.get('about'));
@@ -61,5 +71,5 @@ async function processProfileForUser(u, status, logger) {
     p.set('city', u.get('city'));
     p.set('user', u);
 
-    return await p.save();
+    return p;
 }

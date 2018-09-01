@@ -1,4 +1,6 @@
 const QueryCreator = require('../domain/helpers/QueryCreator');
+const UserService = require('../domain/service/UserService');
+
 const LOG_PREFIX = `JOB: PROFILE_IMPORT:`;
 
 module.exports.MapProfiles = async (req, status) => {
@@ -11,7 +13,7 @@ module.exports.MapProfiles = async (req, status) => {
     const pages = userCount / pageSize;
 
     for (let i = 0; i < pages; i++) {
-        let userBatch = await getUserBatch(i * pageSize);
+        let userBatch = await UserService.find(i * pageSize);
 
         await processUserBatch(userBatch, status, logger);
     }
@@ -20,16 +22,7 @@ module.exports.MapProfiles = async (req, status) => {
 };
 
 async function getUserCount() {
-    return await QueryCreator.createQuery('User')
-        .count();
-}
-
-async function getUserBatch(skipValue) {
-    const userQuery = QueryCreator.createQuery('User');
-    userQuery.skip(skipValue);
-
-    return await userQuery
-        .find({useMasterKey: true});
+    return await UserService.count();
 }
 
 async function processUserBatch(users, status, logger) {
@@ -47,14 +40,14 @@ async function processProfileForUser(u, status, logger) {
 
     if (profile) {
         const p = createProfileFromUser(profile, u);
-        return await p.save();
+        return await p.add();
     } else {
         const Profile = Parse.Object.extend('Profile');
         const p = new Profile();
 
         createProfileFromUser(p, u);
 
-        return await p.save();
+        return await p.add();
     }
 }
 

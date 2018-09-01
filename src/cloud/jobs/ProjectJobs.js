@@ -30,7 +30,7 @@ module.exports.FixProjectProfileReference = async (req, status) => {
                 const profile = await profileQuery.first();
 
                 p.set('profile', profile);
-                await p.save();
+                await p.add();
 
                 logger.info(`${LOG_PREFIX} project: ${p.get('title')} fixed`);
             } catch (e) {

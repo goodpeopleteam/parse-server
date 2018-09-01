@@ -1,38 +1,37 @@
-const ProfileCreate = require('./profile/profile-functions').create;
-const ProfileUpsertAbout = require('./profile/profile-functions').upsertAbout;
-const ProfileUpsertTalents = require('./profile/profile-functions').upsertTalents;
-const ProfileGet = require('./profile/profile-functions').get;
-const ProfileGetById = require('./profile/profile-functions').getById;
-const ProfileGetPicture = require('./profile/profile-functions').getProfilePicture;
+const Profile = require('./functions/profile-functions');
+const Project = require('./functions/project-functions');
+const Favorite = require('./functions/favorite-functions');
 
-const ProjectCreate = require('./project/project-functions').create;
-const ProjectGet = require('./project/project-functions').get;
-const ProjectGetById = require('./project/project-functions').getById;
-const ProjectMyProjects = require('./project/project-functions').myProjects;
-
-const FavoriteAdd = require('./favorite/favorite-functions').add;
-const FavoriteHasFavorite = require('./favorite/favorite-functions').hasFavorite;
-const FavoriteMyFavorites = require('./favorite/favorite-functions').myFavorites;
+// chat functions
+const Chat = require('./functions/chat-functions');
 
 // jobs
 const MapProfiles = require('./jobs/ProfileJobs').MapProfiles;
 const FixProjecProfileReference = require('./jobs/ProjectJobs').FixProjectProfileReference;
 
-Parse.Cloud.define('Profile.create', ProfileCreate);
-Parse.Cloud.define('Profile.upsertAbout', ProfileUpsertAbout);
-Parse.Cloud.define('Profile.upsertTalents', ProfileUpsertTalents);
-Parse.Cloud.define('Profile.get', ProfileGet);
-Parse.Cloud.define('Profile.getById', ProfileGetById);
-Parse.Cloud.define('Profile.getPicture', ProfileGetPicture);
+// triggers
+// profile
+Parse.Cloud.afterSave("Profile", Chat.createUser);
 
-Parse.Cloud.define('Project.create', ProjectCreate);
-Parse.Cloud.define('Project.get', ProjectGet);
-Parse.Cloud.define('Project.getById', ProjectGetById);
-Parse.Cloud.define('Project.myProjects', ProjectMyProjects);
+// cloud functions
+Parse.Cloud.define('Profile.create', Profile.create);
+Parse.Cloud.define('Profile.upsertAbout', Profile.upsertAbout);
+Parse.Cloud.define('Profile.upsertTalents', Profile.upsertTalents);
+Parse.Cloud.define('Profile.get', Profile.get);
+Parse.Cloud.define('Profile.getById', Profile.getById);
 
-Parse.Cloud.define('Favorite.add', FavoriteAdd);
-Parse.Cloud.define('Favorite.hasFavorite', FavoriteHasFavorite);
-Parse.Cloud.define('Favorite.myFavorites', FavoriteMyFavorites);
+Parse.Cloud.define('Project.create', Project.create);
+Parse.Cloud.define('Project.get', Project.get);
+Parse.Cloud.define('Project.getById', Project.getById);
+Parse.Cloud.define('Project.myProjects', Project.myProjects);
+
+Parse.Cloud.define('Favorite.add', Favorite.add);
+Parse.Cloud.define('Favorite.hasFavorite', Favorite.hasFavorite);
+Parse.Cloud.define('Favorite.myFavorites', Favorite.myFavorites);
+
+// chat functions
+Parse.Cloud.define('Chat.createChatRoom', Chat.createChatRoom);
+Parse.Cloud.define('Chat.getUserChatRooms', Chat.getUserChatRooms);
 
 Parse.Cloud.job('mapProfiles', MapProfiles);
 Parse.Cloud.job('fixProjectProfileReference', FixProjecProfileReference);

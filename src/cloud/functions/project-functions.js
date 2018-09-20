@@ -75,9 +75,20 @@ const myProjects = async (req, res) => {
     }
 };
 
+const search = async (req, res) => {
+    const term = req.params.term;
+
+    try {
+        res.success(await ProjectService.search(term))
+    } catch (e) {
+        res.error(e.message);
+    }
+};
+
 module.exports = {
     create,
     get,
     getById,
-    myProjects
+    myProjects,
+    search
 };

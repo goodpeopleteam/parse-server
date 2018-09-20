@@ -3,6 +3,10 @@ const Profile = require('../model/Profile');
 
 const CLASS_NAME = 'Profile';
 
+const createProfileQuery = () => {
+    return QueryCreator.createQuery(CLASS_NAME);
+};
+
 const add = async (params) => {
     try {
         const ParseProfile = Parse.Object.extend(CLASS_NAME);
@@ -28,7 +32,7 @@ const add = async (params) => {
 
 const get = async (id) => {
     try {
-        const p = await QueryCreator.createQuery('Profile')
+        const p = await createProfileQuery()
             .get(id);
 
         return Profile.mapFromParse(p);
@@ -40,7 +44,7 @@ const get = async (id) => {
 
 const getByUserId = async (id) => {
     try {
-        const query = QueryCreator.createQuery('Profile');
+        const query = createProfileQuery();
 
         const user = new Parse.User();
         user.id = id;
@@ -60,7 +64,7 @@ const fetch = async (page) => {
     const pageSize = 5;
 
     try {
-        const query = QueryCreator.createQuery('Profile');
+        const query = createProfileQuery();
 
         query.limit(pageSize);
         query.skip(page * pageSize);
@@ -75,9 +79,24 @@ const fetch = async (page) => {
     }
 };
 
+const search = async (term) => {
+    try {
+        const query = createProfileQuery();
+
+        query.fullText('firstName', term);
+        query.fullText('lastName', term);
+
+        return await query.find();
+    } catch (e) {
+        console.log(e.message);
+        throw e;
+    }
+};
+
 module.exports = {
     add,
     fetch,
     get,
-    getByUserId
+    getByUserId,
+    search
 };

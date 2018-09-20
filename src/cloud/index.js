@@ -19,11 +19,13 @@ Parse.Cloud.define('Profile.upsertAbout', Profile.upsertAbout);
 Parse.Cloud.define('Profile.upsertTalents', Profile.upsertTalents);
 Parse.Cloud.define('Profile.get', Profile.get);
 Parse.Cloud.define('Profile.getById', Profile.getById);
+Parse.Cloud.define('Profile.search', Profile.search);
 
 Parse.Cloud.define('Project.create', Project.create);
 Parse.Cloud.define('Project.get', Project.get);
 Parse.Cloud.define('Project.getById', Project.getById);
 Parse.Cloud.define('Project.myProjects', Project.myProjects);
+Parse.Cloud.define('Project.search', Project.search);
 
 Parse.Cloud.define('Favorite.add', Favorite.add);
 Parse.Cloud.define('Favorite.hasFavorite', Favorite.hasFavorite);

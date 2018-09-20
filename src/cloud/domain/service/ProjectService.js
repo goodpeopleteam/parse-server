@@ -3,6 +3,10 @@ const QueryCreator = require('../helpers/QueryCreator');
 
 const CLASS_NAME = 'Projects';
 
+const createProjectQuery = () => {
+    return QueryCreator.createQuery(CLASS_NAME);
+};
+
 const add = async (params) => {
     try {
         const ParseProject = Parse.Object.extend(CLASS_NAME);
@@ -23,8 +27,7 @@ const add = async (params) => {
 
 const get = async (id) => {
     try {
-        const ParseProject = Parse.Object.extend(CLASS_NAME);
-        const query = new Parse.Query(ParseProject);
+        const query = createProjectQuery();
 
         return Project.mapFromParse(await query.get(id));
     } catch (e) {
@@ -35,7 +38,7 @@ const get = async (id) => {
 
 const fetch = async () => {
     try {
-        const projectQuery = QueryCreator.createQuery(CLASS_NAME);
+        const projectQuery = createProjectQuery();
 
         projectQuery.limit(10);
 
@@ -48,7 +51,7 @@ const fetch = async () => {
 
 const getUsersProjects = async (userId) => {
     try {
-        const projectQuery = QueryCreator.createQuery(CLASS_NAME);
+        const projectQuery = createProjectQuery();
 
         const user = new Parse.User();
         user.id = userId;
@@ -63,9 +66,24 @@ const getUsersProjects = async (userId) => {
     }
 };
 
+const search = async (term) => {
+    try {
+        const query = createProjectQuery();
+
+        query.fullText('title', term);
+        query.fullText('description', term);
+
+        return await query.find();
+    } catch (e) {
+        console.log(e.message);
+        throw e;
+    }
+};
+
 module.exports = {
     add,
     get,
     fetch,
-    getUsersProjects
+    getUsersProjects,
+    search
 };

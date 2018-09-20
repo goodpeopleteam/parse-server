@@ -8,6 +8,7 @@
     "start": "babel-node $NODE_DEBUG_OPTION src/index.js"
   },
   "dependencies": {
+    "babel-cli": "^6.26.0",
     "express": "^4.16.2",
     "firebase-admin": "^6.0.0",
     "lodash": "^4.17.10",

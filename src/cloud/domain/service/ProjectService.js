@@ -36,11 +36,14 @@ const get = async (id) => {
     }
 };
 
-const fetch = async () => {
+const fetch = async (page) => {
+    const pageSize = 20;
+
     try {
         const projectQuery = createProjectQuery();
 
         projectQuery.limit(10);
+        projectQuery.skip(pageSize * page);
 
         return await projectQuery.find();
     } catch (e) {

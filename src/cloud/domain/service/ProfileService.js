@@ -61,7 +61,7 @@ const getByUserId = async (id) => {
 };
 
 const fetch = async (page) => {
-    const pageSize = 5;
+    const pageSize = 20;
 
     try {
         const query = createProfileQuery();

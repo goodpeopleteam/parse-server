@@ -1,6 +1,26 @@
+const User = require('../model/User');
 const QueryCreator = require('../helpers/QueryCreator');
 
-const get = async (id) => {
+const get = async (page) => {
+    const pageSize = 20;
+
+    try {
+        const query = QueryCreator.createQuery('User');
+
+        query.limit(pageSize);
+        query.skip(page * pageSize);
+        query.descending('createdAt');
+
+        const profiles = await query.find({useMasterKey: true});
+
+        return profiles.map(u => User.mapFromParse(u));
+    } catch (e) {
+        console.log(e.message);
+        throw e;
+    }
+};
+
+const getById = async (id) => {
     try {
         return await QueryCreator.createQuery('User')
             .get(id, {useMasterKey: true});
@@ -35,6 +55,7 @@ const count = async () => {
 
 module.exports = {
     get,
+    getById,
     find,
     count
 };

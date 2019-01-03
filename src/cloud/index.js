@@ -9,7 +9,13 @@ const Chat = require('./functions/chat-functions');
 const MapProfiles = require('./jobs/ProfileJobs').MapProfiles;
 const FixProjecProfileReference = require('./jobs/ProjectJobs').FixProjectProfileReference;
 
-// triggers
+// hooks
+const UserHooks = require('./hooks/user-hooks');
+
+// hooks
+//user
+Parse.Cloud.beforeSave(Parse.User, UserHooks.beforeSave);
+
 // profile
 Parse.Cloud.afterSave("Profile", Chat.createUser);
 

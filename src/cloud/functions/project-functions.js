@@ -30,8 +30,10 @@ const create = async (req, res) => {
 };
 
 const get = async (req, res) => {
+    const page = req.params.page;
+
     try {
-        const parseProjects = await ProjectService.fetch();
+        const parseProjects = await ProjectService.fetch(page);
         const mappedProjects = [];
 
         for (let i = 0; i < parseProjects.length; i++) {

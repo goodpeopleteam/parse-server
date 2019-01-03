@@ -57,7 +57,7 @@ const get = async (req, res) => {
     const page = req.params.page;
 
     try {
-        res.success(await ProfileService.fetch(page));
+        res.success(await UserService.get(page));
     } catch (e) {
         res.error(e.message);
     }

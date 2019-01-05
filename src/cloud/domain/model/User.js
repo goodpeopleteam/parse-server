@@ -5,7 +5,7 @@ const mapFromParse = (x) => {
     firstName: x.get('firstName'),
     lastName: x.get('lastName'),
     about: x.get('about'),
-    skills: x.get('talents') || [],
+    talents: x.get('skills') || [],
     profilePictureUrl: getProfilePictureUrl(x),
     location: {
       location: x.get('location'),

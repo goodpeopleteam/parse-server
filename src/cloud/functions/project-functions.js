@@ -33,17 +33,9 @@ const get = async (req, res) => {
     const page = req.params.page;
 
     try {
-        const parseProjects = await ProjectService.fetch(page);
-        const mappedProjects = [];
+        const parseProjects = await ProjectService.get(page);
 
-        for (let i = 0; i < parseProjects.length; i++) {
-            const parseProject = parseProjects[i];
-            const projectProfile = await parseProject.get('profile').fetch();
-
-            mappedProjects.push(Project.mapFromParse(parseProject, projectProfile));
-        }
-
-        res.success(mappedProjects);
+        res.success(parseProjects.map(p => Project.mapFromParseV1(p)));
     } catch (e) {
         res.error(e.message);
     }

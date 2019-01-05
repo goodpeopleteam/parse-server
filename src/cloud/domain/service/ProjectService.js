@@ -25,7 +25,7 @@ const add = async (params) => {
     }
 };
 
-const get = async (id) => {
+const getById = async (id) => {
     try {
         const query = createProjectQuery();
 
@@ -36,7 +36,7 @@ const get = async (id) => {
     }
 };
 
-const fetch = async (page) => {
+const get = async (page) => {
     const pageSize = 20;
 
     try {
@@ -44,8 +44,9 @@ const fetch = async (page) => {
 
         projectQuery.limit(10);
         projectQuery.skip(pageSize * page);
+        projectQuery.include("user", { userMasterKey: true });
 
-        return await projectQuery.find();
+        return await projectQuery.find({ useMasterKey: true });
     } catch (e) {
         console.log(e.message);
         throw e;
@@ -85,8 +86,8 @@ const search = async (term) => {
 
 module.exports = {
     add,
+    getById,
     get,
-    fetch,
     getUsersProjects,
     search
 };

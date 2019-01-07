@@ -1,11 +1,46 @@
 const QueryCreator = require('../domain/helpers/QueryCreator');
+const ProjectService = require('../domain/service/ProjectService');
+const UserService = require('../domain/service/UserService');
 const LOG_PREFIX = `JOB: FIX PROJECT USER REFERENCE:`;
+
+module.exports.FixProjectUserReference = async (req, status) => {
+    const logger = req.log;
+    const pageSize = 50;
+
+    const projectCount = await ProjectService.count();
+    const pages = projectCount / pageSize;
+
+    for (let currentPage = 0; currentPage < pages; currentPage++) {
+        const getPagedProjectsQuery = QueryCreator.createQuery('Projects');
+        getPagedProjectsQuery.skip(pageSize * currentPage);
+
+        let projectBatch = await getPagedProjectsQuery.find();
+
+        for (let i = 0; i < projectBatch.length; i++) {
+            const p = projectBatch[i];
+
+            if (p.get('user'))
+                continue;
+
+            try {
+                const userReference = await UserService.getById(p.get('userID'));
+
+                p.set('user', userReference);
+                await p.add();
+
+                logger.info(`${LOG_PREFIX} project: ${p.get('title')} fixed`);
+            } catch (e) {
+                logger.error(e);
+            }
+        }
+    }
+};
 
 module.exports.FixProjectProfileReference = async (req, status) => {
     const logger = req.log;
     const pageSize = 1;
 
-    const projectCount = await QueryCreator.createQuery('Projects').count();
+    const projectCount = await ProjectService.count();
     const pages = projectCount / pageSize;
 
     for (let currentPage = 0; currentPage < pages; currentPage++) {

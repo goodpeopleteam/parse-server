@@ -1,7 +1,7 @@
 const Project = require('../model/Project');
 const QueryCreator = require('../helpers/QueryCreator');
-
 const CLASS_NAME = 'Projects';
+const PAGE_SIZE = 20;
 
 const createProjectQuery = () => {
     return QueryCreator.createQuery(CLASS_NAME);
@@ -37,13 +37,11 @@ const getById = async (id) => {
 };
 
 const get = async (page) => {
-    const pageSize = 20;
-
     try {
         const projectQuery = createProjectQuery();
 
         projectQuery.limit(10);
-        projectQuery.skip(pageSize * page);
+        projectQuery.skip(PAGE_SIZE * page);
         projectQuery.include("user", { userMasterKey: true });
 
         return await projectQuery.find({ useMasterKey: true });
@@ -84,10 +82,15 @@ const search = async (term) => {
     }
 };
 
+const count = async () => {
+    return await createProjectQuery().count();
+};
+
 module.exports = {
     add,
     getById,
     get,
     getUsersProjects,
-    search
+    search,
+    count
 };

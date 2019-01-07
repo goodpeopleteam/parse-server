@@ -26,7 +26,7 @@ const getById = async (id) => {
             .get(id, {useMasterKey: true});
     } catch (e) {
         console.log(e.message);
-        throw e;
+        return null;
     }
 };
 

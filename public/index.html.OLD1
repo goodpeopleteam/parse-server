@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+
+	<script>
+
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+		ga('create', 'UA-69430016-1', 'auto');
+		ga('send', 'pageview');
+
+	</script>
+
+	<!-- BEGIN TITLE -->
+	<title>GoodPeople App</title>
+	<!-- END TITLE -->
+
+	<!-- BEGIN META-TAGS -->
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+	<meta name="description" content="GoodPeople é colaboração. É conectar-se com pessoas dispostas a criar algo novo.">
+	<meta name="keywords" content="goodpeople, colaboração, conectar, pessoas, criar, novo">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="image_src" href="http://www.goodpeopleapp.com.br/share.png">
+	<!-- END META-TAGS -->
+
+	<!-- BEGIN FACEBOOK TAGS -->
+	<meta property="og:title" content="GoodPeople App">
+	<meta property="og:site_name" content="GoodPeople App">
+	<meta property="og:url" content="http://www.goodpeopleapp.com.br">
+	<meta property="og:description" content="GoodPeople é colaboração. É conectar-se com pessoas dispostas a criar algo novo.">
+	<meta property="og:image" content="http://www.goodpeopleapp.com.br/share.png">
+	<meta property="og:type" content="website">
+	<meta property="og:locale" content="pt_BR">
+	<!-- END FACEBOOK TAGS -->
+
+	<!-- BEGIN FAVICON -->
+	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+	<link rel="apple-touch-icon" sizes="57x57" href="apple-icon-57x57.png">
+	<link rel="apple-touch-icon" sizes="60x60" href="apple-icon-60x60.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="apple-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="apple-icon-76x76.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="apple-icon-114x114.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="apple-icon-120x120.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="apple-icon-144x144.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="apple-icon-152x152.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="apple-icon-180x180.png">
+	<link rel="icon" type="image/png" sizes="192x192"  href="android-icon-192x192.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+	<link rel="manifest" href="manifest.json">
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+	<meta name="theme-color" content="#ffffff">
+	<!-- END FAVICON -->
+
+	<!-- BEGIN CSS -->
+	<link type="text/css" rel="stylesheet" href="css/reset.css">
+	<link type="text/css" rel="stylesheet" href="css/grid.css">
+	<link type="text/css" rel="stylesheet" href="css/magnific-popup/magnific-popup.css">
+	<link type="text/css" rel="stylesheet" href="css/index.css">
+	<!-- END CSS -->
+
+	<!-- BEGIN FONT -->
+	<link href='https://fonts.googleapis.com/css?family=Roboto:300,400' rel='stylesheet' type='text/css'>
+	<!-- END FONT -->
+
+</head>
+<body>
+
+	<div class="page">
+
+		<div class="green_border"></div>
+		<header class="header">
+			<div class="wrapper">
+				<div class="grid-row">
+					<div class="m_grid-8 t_grid-16 d_grid-24">
+						<h1 class="logo">GoodPeople</h1>
+						<h2 class="text">GoodPeople é colaboração. É conectar-se com pessoas dispostas a criar algo novo. Algo que as motive verdadeiramente e as faça inovar ou desengavetar um projeto, simplesmente porque elas também acreditam que é hora de tirar as ideias do papel.</h2>
+					</div>
+				</div>
+				<div class="grid-row">
+					<div class="m_grid-8 t_grid-16 d_grid-12">
+						&nbsp;
+						<span class="app">imagem ilustrativa de goodpeople app</span>
+					</div>
+					<div class="m_grid-8 t_grid-16 d_grid-12">
+						<div class="box_download">
+							<p class="title">Baixe o app e conheça</p>
+							<ul class="list">
+								<li class="list_item"><a class="btn_stores apple" href="https://itunes.apple.com/br/app/goodpeople/id1044109830?l=en&mt=8" target="_blank" title="faça o download na app store">faça o download na app store</a></li>
+								<li class="list_item last"><a class="btn_stores google"href="https://play.google.com/store/apps/details?id=com.goodpeopleapp.goodpeople" target="_blank" title="faça o download na google play">faça o download na google play</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+		<div class="header_bottom_bg"></div>
+
+		<article class="content">
+
+			<div class="section_info">
+				<div class="wrapper">
+					<div class="grid-row">
+						<div class="d_grid-12 m_hide t_hide">
+							&nbsp;
+						</div>
+						<div class="m_grid-8 t_grid-16 d_grid-12">
+							<p class="text mb20px">Precisamos colocar mais coisas bacanas no mundo e a única coisa necessária para isso são pessoas com talentos complementares que, trabalhando juntas, façam acontecer.</p>
+							<p class="text">No GoodPeople, esses talentos estão pertinho! Basta entrar no app, procurar o talento que precisa, entrar em contato e começar a jornada :)</p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="section_comofunciona_top_bg"></div>
+			<div class="section_comofunciona">
+				<div class="wrapper">
+					<div class="grid-row">
+						<div class="m_grid-8 t_grid-16 d_grid-24">
+							<h4 class="title">Como funciona:</h4>
+						</div>
+					</div>
+					<div class="grid-row">
+						<div class="m_grid-8 t_grid-16 d_grid-8">
+							<div class="feature item_1">
+								<img class="image" src="img/transparent.gif" alt="imagem ilustrativa de como funciona">
+								<p class="text"><strong class="strong">Adicione seus talentos.</strong><br /> Vale qualquer coisa que<br /> você saiba fazer ou<br /> conheça bem.</p>
+							</div>
+						</div>
+						<div class="m_grid-8 t_grid-16 d_grid-8">
+							<div class="feature item_2">
+								<img class="image" src="img/transparent.gif" alt="imagem ilustrativa de como funciona">
+								<p class="text">Quando precisar de ajuda com alguma coisa é só buscar por alguém, <strong class="strong">digitando o talento que você procura</strong>.</p>
+							</div>
+						</div>
+						<div class="m_grid-8 t_grid-16 d_grid-8">
+							<div class="feature item_3 last">
+								<img class="image" src="img/transparent.gif" alt="imagem ilustrativa de como funciona">
+								<p class="text">Quando alguém precisar da sua ajuda você <strong class="strong">receberá uma mensagem</strong> direto<br /> aqui no app.</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="section_namidia">
+				<div class="wrapper">
+					<div class="grid-row">
+						<div class="m_grid-8 t_grid-16 d_grid-24">
+							<h4 class="title">Na mídia</h4>
+						</div>
+					</div>
+					<div class="grid-row">
+						<div class="m_grid-8 t_grid-16 d_grid-6">
+							<div class="feature item_catracalivre">
+								<a class="link" href="https://catracalivre.com.br/geral/invencoes-ideias/indicacao/conheca-o-goodpeople-e-tire-os-seus-projetos-do-papel/" title="Catraca Livre" target="_blank">Catraca Livre</a>
+							</div>
+						</div>
+						<div class="m_grid-8 t_grid-16 d_grid-6">
+							<div class="feature item_techtudo">
+								<a class="link" href="http://www.techtudo.com.br/tudo-sobre/good-people.html#descricao-opiniao" title="TechTudo" target="_blank">TechTudo</a>
+							</div>
+						</div>
+						<div class="m_grid-8 t_grid-16 d_grid-6">
+							<div class="feature item_exame">
+								<a class="link" href="http://exame.abril.com.br/tecnologia/noticias/7-apps-bons-para-baixar-no-smartphone-nesta-semana-28-11#6" title="Exame" target="_blank">Exame</a>
+							</div>
+						</div>
+						<div class="m_grid-8 t_grid-16 d_grid-6">
+							<div class="feature item_razoesparaacreditar">
+								<a class="link" href="https://razoesparaacreditar.com/projetos/app-conecta-pessoas-que-querem-desenvolver-uma-ideia-a-profissionais-capazes-de-faze-la/" title="Razões Para Acreditar" target="_blank">Razões Para Acreditar</a>
+							</div>
+						</div>
+					</div>
+					<div class="grid-row">
+						<div class="m_grid-8 t_grid-16 d_grid-24">
+							<div class="feature last item_olheforadacaixa">
+								<a class="link" href="http://www.olheforadacaixa.com/good-people/" title="Olhe Fora da Caixa" target="_blank">Olhe Fora da Caixa</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="section_namidia_bottom_bg"></div>
+
+			<div class="section_thegoodpeople">
+				<div class="wrapper">
+
+					<div class="grid-row">
+						<div class="m_grid-8 t_grid-16 d_grid-24">
+							<h4 class="title">The GoodPeople</h4>
+						</div>
+					</div>
+
+					<div class="grid-row">
+						<div class="m_grid-8 t_grid-16 d_grid-24">
+							<p class="text">O GoodPeople foi construído por um time incrível de 7 gente boas que acreditam na força da colaboração por propósito. O mundo precisa mudar: pessoas e empresas precisam colaborar, com seus talentos complementares, alinhando seus propósitos e caminhos.</p>
+						</div>
+					</div>
+
+					<!--
+					<div class="grid-row">
+						<div class="m_grid-8 t_grid-8 d_grid-6">
+							<div class="box_people">
+								<img class="photo anajulia" src="img/transparent.gif" alt="foto de ">
+								<p class="name">Ana Julia Ghirello</p>
+								<p class="location">Rio de Janeiro / Brasil</p>
+								<div class="green_border"></div>
+								<p class="description">
+									Ana Julia Ghirello é co-fundadora do GoodPeople - Uma plataforma de colaboração que conecta as pessoas para realizar projetos juntos e tirar ideias do papel.
+								</p>
+								<a class="more call_profile_anajulia" data-mfp-src="#profile_anajulia" href="#profile_anajulia" title="veja mais">+</a>
+							</div>
+						</div>
+						<div class="m_grid-8 t_grid-8 d_grid-6">
+							<div class="box_people">
+								<img class="photo maxim" src="img/transparent.gif" alt="foto de Maxim Kejzelman">
+								<p class="name">Maxim Kejzelman</p>
+								<p class="location">Rio de Janeiro / Brasil</p>
+								<div class="green_border"></div>
+								<p class="description">
+									Maxim Kejzelman é co-fundador do GoodPeople - Uma plataforma de colaboração que conecta as pessoas para realizar projetos juntos e tirar ideias do papel.
+								</p>
+								<a class="more call_profile_maxim" data-mfp-src="#profile_maxim" href="#profile_maxim" title="veja mais">+</a>
+							</div>
+						</div>
+						<div class="m_grid-8 t_grid-8 d_grid-6">
+							<div class="box_people">
+								<img class="photo fel" src="img/transparent.gif" alt="foto de ">
+								<p class="name">Fel Mendes</p>
+								<p class="location">Rio de Janeiro / Brasil</p>
+								<div class="green_border"></div>
+								<p class="description">
+									Fel Mendes é jornalista e um entusiasta do GoodPeople.
+								</p>
+								<a class="more call_profile_fel" data-mfp-src="#profile_fel" href="#profile_fel" title="veja mais">+</a>
+							</div>
+						</div>
+						<div class="m_grid-8 t_grid-8 d_grid-6">
+							<div class="box_people">
+								<img class="photo camilo" src="img/transparent.gif" alt="foto de ">
+								<p class="name">Camilo Cavalcanti</p>
+								<p class="location">Rio de Janeiro / Brasil</p>
+								<div class="green_border"></div>
+								<p class="description">
+									Camilo Cavalcanti é produtor e diretor ávido por transformar projetos em realidade de uma forma humana e colaborativa.
+								</p>
+								<a class="more call_profile_camilo" data-mfp-src="#profile_camilo" href="#profile_camilo" title="veja mais">+</a>
+							</div>
+						</div>
+					</div>
+					<div class="grid-row">
+						<div class="m_grid-8 t_grid-8 d_grid-6">
+							<div class="box_people">
+								<img class="photo rafael" src="img/transparent.gif" alt="foto de ">
+								<p class="name">Rafael Martins</p>
+								<p class="location">Rio de Janeiro / Brasil</p>
+								<div class="green_border"></div>
+								<p class="description">
+									Rafael Martins é desenvolvedor Android (e backend) do GoodPeople, um aplicativo que conecta pessoas, de acordo com suas habilidades, necessidades e interesses, com o objetivo de realizar sonhos.
+								</p>
+								<a class="more call_profile_rafael" data-mfp-src="#profile_rafael" href="#profile_rafael" title="veja mais">+</a>
+							</div>
+						</div>
+						<div class="m_grid-8 t_grid-8 d_grid-6">
+							<div class="box_people">
+								<img class="photo eduardo" src="img/transparent.gif" alt="foto de ">
+								<p class="name">Eduardo Viegas</p>
+								<p class="location">Rio de Janeiro / Brasil</p>
+								<div class="green_border"></div>
+								<p class="description">
+									Eduardo Viegas é desenvolvedor iOS do GoodPeople, um aplicativo que conecta pessoas, de acordo com suas habilidades, necessidades e interesses, com o objetivo de realizar sonhos.
+								</p>
+								<a class="more call_profile_eduardo" data-mfp-src="#profile_eduardo" href="#profile_eduardo" title="veja mais">+</a>
+							</div>
+						</div>
+						<div class="m_grid-8 t_grid-8 d_grid-6">
+							<div class="box_people last">
+								<img class="photo nasser" src="img/transparent.gif" alt="foto de ">
+								<p class="name">Nasser Said</p>
+								<p class="location">São Paulo / Brasil</p>
+								<div class="green_border"></div>
+								<p class="description">
+									Nasser é designer, atualmente trabalha na OLX, focado em desenvolver uma melhor experiência de consumo para nossos usuários.
+								</p>
+								<a class="more call_profile_nasser" data-mfp-src="#profile_nasser" href="#profile_nasser" title="veja mais">+</a>
+							</div>
+						</div>
+					</div>
+					-->
+
+				</div>
+			</div>
+
+		</article>
+
+		<div class="footer_top_bg"></div>
+		<footer class="footer">
+			<div class="wrapper">
+
+				<div class="grid-row">
+					<div class="m_grid-8 t_grid_16 d_grid-14">
+						<div class="box_contact">
+							<div class="green_border t_hide d_hide"></div>
+							<p class="text">Fale com a gente :) <a class="link_email" href="mailto:heythere@goodpeopleapp.com.br" title="heythere@goodpeopleapp.com.br">heythere@goodpeopleapp.com.br</a></p>
+						</div>
+						<div class="green_border m_hide d_hide"></div>
+					</div>
+					<div class="m_grid-8 t_grid_16 d_grid-10">
+						<ul class="list">
+							<li class="list_item"><a class="btn_facebook" href="http://www.facebook.com/goodpeopleapp" target="_blank" title="facebook do goodpeople">facebook</a></li>
+							<li class="list_item"><a class="btn_stores apple" href="https://itunes.apple.com/br/app/goodpeople/id1044109830?l=en&mt=8" target="_blank" title="faça o download na app store">faça o download na app store</a></li>
+							<li class="list_item last"><a class="btn_stores google"href="https://play.google.com/store/apps/details?id=com.goodpeopleapp.goodpeople" target="_blank" title="faça o download na google play">faça o download na google play</a></li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="green_border m_hide t_hide"></div>
+
+				<div class="grid-row">
+					<div class="d_grid-24">
+						<p class="copyright">Copyright © 2015 GoodPeople. Feito com <span class="heart">amor</span> por GoodPeople.</p>
+					</div>
+				</div>
+			</div>
+		</footer>
+
+	</div>
+	<!--
+	<div id="profile_anajulia" class="popup mfp-hide">
+		<div class="popup_header">
+			<div class="profile_info">
+				<img class="photo anajulia" src="img/transparent.gif" alt="foto de Ana Julia Ghirello">
+				<p class="name">Ana Julia Ghirello</p>
+				<p class="location">Rio de Janeiro / Brasil</p>
+			</div>
+			<div class="popup_header_bottom_bg"></div>
+		</div>
+		<div class="popup_content">
+			<div class="green_border"></div>
+			<ul class="list">
+				<li class="list_item">
+					<a href="https://medium.com/@anajuliag/" target="_blank" class="social_network medium" title="Medium">Medium</a>
+				</li>
+				<li class="list_item">
+					<a href="https://br.linkedin.com/in/anajuliaghirello" target="_blank" class="social_network linkedin" title="LinkedIn">LinkedIn</a>
+				</li>
+				<li class="list_item">
+					<a href="https://www.facebook.com/ajghirello" target="_blank" class="social_network facebook" title="Facebook">Facebook</a>
+				</li>
+			</ul>
+			<p class="text mb10px">Ana Julia Ghirello é co-fundadora do GoodPeople - Uma plataforma de colaboração que conecta as pessoas para realizar projetos juntos e tirar ideias do papel.</p></p>
+			<p class="text mb10px">Ela faz parte do time que fundou o bomnegócio.com em 2011, onde era vice-presidente, e que se juntou à OLX em fevereiro de 2015. Antes disso, morou 8 anos em Nova York onde iniciou sua carreira aos 19 anos com UX e desenvolvimento de produtos em uma startup de e-commerce até fundar a sua empresa, uma consultoria digital, aos 22 anos. Filha de bailarinos, quase foi jogadora profissional de futebol.</p>
+			<p class="text">Ana Julia é apaixonada por criar empresas e produtos voltados para potencializar o desenvolvimento humano, onde o foco é no propósito do negócio e como ele toca as vidas de quem o utiliza. Quando ouviu a idéia do aplicativo, não fazê-lo era impossível. Eles tinham que tirar aquilo do papel.</p>
+		</div>
+	</div>
+
+	<div id="profile_maxim" class="popup mfp-hide">
+		<div class="popup_header">
+			<div class="profile_info">
+				<img class="photo maxim" src="img/transparent.gif" alt="foto de Maxim Kejzelman">
+				<p class="name">Maxim Kejzelman</p>
+				<p class="location">Rio de Janeiro / Brasil</p>
+			</div>
+			<div class="popup_header_bottom_bg"></div>
+		</div>
+		<div class="popup_content">
+			<div class="green_border"></div>
+			<ul class="list">
+				<li class="list_item">
+					<a href="https://www.linkedin.com/pub/maxim-kejzelman/64/370/752" target="_blank" class="social_network linkedin" title="LinkedIn">LinkedIn</a>
+				</li>
+			</ul>
+			<p class="text mb10px">Maxim Kejzelman é co-fundador do GoodPeople - Uma plataforma de colaboração que conecta as pessoas para realizar projetos juntos e tirar ideias do papel.</p>
+			<p class="text mb10px">Ele é o sueco mais carioca que você vai conhecer! Max mudou para o Brasil em 2012 e foi responsável por construir os aplicativos do bomnegocio.com, que depois se tornou OLX. Sua expertise é em desenvolvimento de produto, com foco em agilidade, UX e insights de usuários.</p>
+			<p class="text">Apaixonado por ajudar pessoas a se conectarem, Max teve um momento Arquimedes quando teve a idéia de criar o GoodPeople.</p>
+		</div>
+	</div>
+
+	<div id="profile_fel" class="popup mfp-hide">
+		<div class="popup_header">
+			<div class="profile_info">
+				<img class="photo fel" src="img/transparent.gif" alt="foto de Fel Mendes">
+				<p class="name">Fel Mendes</p>
+				<p class="location">Rio de Janeiro / Brasil</p>
+			</div>
+			<div class="popup_header_bottom_bg"></div>
+		</div>
+		<div class="popup_content">
+			<div class="green_border"></div>
+			<ul class="list">
+				<li class="list_item">
+					<a href="https://medium.com/@FelMendes" target="_blank" class="social_network medium" title="Medium">Medium</a>
+				</li>
+				<li class="list_item">
+					<a href="https://www.linkedin.com/pub/fel-mendes/1b/149/7a1" target="_blank" class="social_network linkedin" title="LinkedIn">LinkedIn</a>
+				</li>
+			</ul>
+			<p class="text mb10px">Fel Mendes é jornalista e um entusiasta do GoodPeople.</p>
+			<p class="text mb10px">Desde 2005 na ativa, Fel passou pelas redações do Uol e da editora Globo, antes de comandar, de 2012 até 2015, a equipe que ajudou a consolidar a Revista Sexy como uma publicação masculina divertida e relevante.</p>
+			<p class="text">Quando escutou a ideia do GoodPeople de Ana Julia, não aquietou até ouvir que ele estava dentro do time que ia criar o aplicativo. Na verdade, até agora ele ainda não sossegou muito.</p>
+		</div>
+	</div>
+
+	<div id="profile_camilo" class="popup mfp-hide">
+		<div class="popup_header">
+			<div class="profile_info">
+				<img class="photo camilo" src="img/transparent.gif" alt="foto de Camilo Cavalcanti">
+				<p class="name">Camilo Cavalcanti</p>
+				<p class="location">Rio de Janeiro / Brasil</p>
+			</div>
+			<div class="popup_header_bottom_bg"></div>
+		</div>
+		<div class="popup_content">
+			<div class="green_border"></div>
+			<ul class="list">
+				<li class="list_item">
+					<a href="https://medium.com/@camilocavalcanti" target="_blank" class="social_network medium" title="Medium">Medium</a>
+				</li>
+				<li class="list_item">
+					<a href="https://br.linkedin.com/pub/camilo-cavalcanti/94/16b/352" target="_blank" class="social_network linkedin" title="LinkedIn">LinkedIn</a>
+				</li>
+			</ul>
+			<p class="text mb10px">Camilo Cavalcanti é produtor e diretor ávido por transformar projetos em realidade de uma forma humana e colaborativa. Tem o ferro das Minas Geraes no sangue e o DNA GoodPeople correndo nas veias! Quase virou palhaço mas a vida preferiu joga-lo no cinema.</p>
+			<p class="text">Em 2007 partiu em sua primeira expedição de produção fotográfica e audiovisual percorrendo a Índia por 3 meses. A partir de 2010 a coisa ficou séria! Camilo produziu várias séries, documentários e institucionais pelo Brasil. Depois de uma temporada na Africa e produções em Cuba, Europa e Asia, mudou-se pro Rio em 2013 e fundou a Clariô Filmes, produtora que busca concretizar projetos com objetividade, clareza e horizontalidade, muitas vezes sugerindo uma nova ordem de mercado.</p>
+		</div>
+	</div>
+
+	<div id="profile_rafael" class="popup mfp-hide">
+		<div class="popup_header">
+			<div class="profile_info">
+				<img class="photo rafael" src="img/transparent.gif" alt="foto de Rafael Martins">
+				<p class="name">Rafael Martins</p>
+				<p class="location">Rio de Janeiro / Brasil</p>
+			</div>
+			<div class="popup_header_bottom_bg"></div>
+		</div>
+		<div class="popup_content">
+			<div class="green_border"></div>
+			<ul class="list">
+				<li class="list_item">
+					<a href="https://br.linkedin.com/in/rafaelwmartins/pt" target="_blank" class="social_network linkedin" title="LinkedIn">LinkedIn</a>
+				</li>
+			</ul>
+			<p class="text mb10px">Rafael Martins é desenvolvedor Android (e backend) do GoodPeople, um aplicativo que conecta pessoas, de acordo com suas habilidades, necessidades e interesses, com o objetivo de realizar sonhos.</p>
+			<p class="text mb10px">Apaixonado por tecnologia, tem mais de 7 anos de experiência em seu mercado. Atualmente trabalha com aplicativos na OLX, onde começou como desenvolvedor backend quando a empresa ainda se chamava Bom Negócio.</p>
+			<p class="text">É admirador da plataforma Android desde o seu início. Já em 2009, ela foi tema do seu projeto final de graduação em engenharia de computação na PUC-Rio, faculdade onde também cursou o seu mestrado.</p>
+		</div>
+	</div>
+
+	<div id="profile_eduardo" class="popup mfp-hide">
+		<div class="popup_header">
+			<div class="profile_info">
+				<img class="photo eduardo" src="img/transparent.gif" alt="foto de Eduardo Viegas">
+				<p class="name">Eduardo Viegas</p>
+				<p class="location">Rio de Janeiro / Brasil</p>
+			</div>
+			<div class="popup_header_bottom_bg"></div>
+		</div>
+		<div class="popup_content">
+			<div class="green_border"></div>
+			<ul class="list">
+				<li class="list_item">
+					<a href="https://br.linkedin.com/pub/eduardo-viegas-de-magalhães/39/18a/487" target="_blank" class="social_network linkedin" title="LinkedIn">LinkedIn</a>
+				</li>
+			</ul>
+			<p class="text mb10px">Eduardo Viegas é desenvolvedor iOS do GoodPeople, um aplicativo que conecta pessoas, de acordo com suas habilidades, necessidades e interesses, com o objetivo de realizar sonhos.</p>
+			<p class="text mb10px">Começou a desenvolver apps para iPhone na época do iPhone 3G, em 2011. Desde então é focado quase que exclusivamente ao desenvolvimento de produtos da Apple como iPhone, iPad, Apple Watch e, em breve, Apple TV. Acompanha todas as novidades de perto para disponibilizar em seus apps o quanto antes.</p>
+			<p class="text">Com 5 anos de experiência nesta área, sendo 3 exclusivamente na plataforma Apple, já trabalhou desenvolvendo (mais que alguns) apps para as maiores companhias de telecomunicações do Brasil e atualmente faz parte da equipe de desenvolvimento do app iOS da OLX, onde atua desde os primeiros esboços do projeto.</p>
+		</div>
+	</div>
+
+	<div id="profile_nasser" class="popup mfp-hide">
+		<div class="popup_header">
+			<div class="profile_info">
+				<img class="photo nasser" src="img/transparent.gif" alt="foto de Nasser Said">
+				<p class="name">Nasser Said</p>
+				<p class="location">São Paulo / Brasil</p>
+			</div>
+			<div class="popup_header_bottom_bg"></div>
+		</div>
+		<div class="popup_content">
+			<div class="green_border"></div>
+			<ul class="list">
+				<li class="list_item">
+					<a href="https://br.linkedin.com/in/nassersaid" target="_blank" class="social_network linkedin" title="LinkedIn">LinkedIn</a>
+				</li>
+				<li class="list_item">
+					<a href="http://dribbble.com/nassersaid" target="_blank" class="social_network dribbble" title="Dribbble">Dribbble</a>
+				</li>
+				<li class="list_item">
+					<a href="http://www.nassersaid.com" target="_blank" class="social_network website" title="Website">Website</a>
+				</li>
+			</ul>
+			<p class="text mb10px">Nasser é designer, atualmente trabalha na OLX, focado em desenvolver uma melhor experiência de consumo para nossos usuários.</p>
+			<p class="text mb10px">Ao longo dos últimos 12 anos, eu tive a oportunidade de trabalhar com marcas líderes como a Coca-Cola, Unilever, Claro, Dove, Sony, Billboard, IBM, BK, Allianz, entre outros, e com pessoas incríveis na Europa, América e Ásia.</p>
+			<p class="text">Pai, geek, viciado em tecnologia e design, e eu gosto de trabalhar em projetos que possam ajudar as pessoas, pois tudo deve ser pensado sempre para elas, é isso o que realmente importa.</p>
+		</div>
+	</div>
+	-->
+
+	<!-- BEGIN SCRIPTS -->
+	<script src="js/jquery/jquery.min.js"></script>
+	<script src="js/magnific-popup/magnific-popup.js"></script>
+	<script src="js/index.js"></script>
+	<!-- END SCRIPTS -->
+
+</body>
+</html>

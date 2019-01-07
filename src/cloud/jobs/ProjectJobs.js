@@ -11,10 +11,12 @@ module.exports.FixProjectUserReference = async (req, status) => {
     const pages = projectCount / pageSize;
 
     for (let currentPage = 0; currentPage < pages; currentPage++) {
-        const getPagedProjectsQuery = QueryCreator.createQuery('Projects');
-        getPagedProjectsQuery.skip(pageSize * currentPage);
+        const projectsQuery = QueryCreator.createQuery('Projects');
 
-        let projectBatch = await getPagedProjectsQuery.find();
+        projectsQuery.skip(pageSize * currentPage);
+        projectsQuery.limit(pageSize);
+
+        let projectBatch = await projectsQuery.find();
 
         for (let i = 0; i < projectBatch.length; i++) {
             const p = projectBatch[i];
@@ -25,15 +27,22 @@ module.exports.FixProjectUserReference = async (req, status) => {
             try {
                 const userReference = await UserService.getById(p.get('userID'));
 
-                p.set('user', userReference);
-                await p.add();
+                if (!userReference) {
+                    logger.info(`${LOG_PREFIX} project: ${p.get('title')} destroyed`);
+                    await p.destroy();
+                } else {
+                    p.set('user', userReference);
+                    await p.save();
 
-                logger.info(`${LOG_PREFIX} project: ${p.get('title')} fixed`);
+                    logger.info(`${LOG_PREFIX} project: ${p.get('title')} fixed`);
+                }
             } catch (e) {
                 logger.error(e);
+                status.error(e.code, e.message);
             }
         }
     }
+    status.success();
 };
 
 module.exports.FixProjectProfileReference = async (req, status) => {

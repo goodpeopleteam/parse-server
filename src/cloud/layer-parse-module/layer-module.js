@@ -1,5 +1,4 @@
-var root = __dirname;
-var signer = require(root + "/node_modules/jsrsasign/lib/jsrsasign.js");
+var signer = require("jsrsasign");
 
 var layerProviderID = '';
 var layerKeyID = '';

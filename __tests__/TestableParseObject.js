@@ -5,7 +5,9 @@ export default class TestableParseObject {
         return this.data[param];
     };
 
-    set = (param, value) => {
+    set = jest.fn((param, value) => {
         this.data[param] = value;
-    };
+    });
+
+    add = jest.fn();
 }

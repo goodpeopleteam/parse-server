@@ -3,17 +3,19 @@ const Project = require('./functions/project-functions');
 const Favorite = require('./functions/favorite-functions');
 const Chat = require('./functions/chat-functions');
 const Layer = require('./functions/layer-functions');
-
-// jobs
-const MapProfiles = require('./jobs/ProfileJobs').MapProfiles;
-const FixProjecProfileReference = require('./jobs/ProjectJobs').FixProjectProfileReference;
+const ProjectJobs = require('./jobs/ProjectJobs');
+const ProfileJobs = require('./jobs/ProfileJobs');
 
 // hooks
 const UserHooks = require('./hooks/user-hooks');
+const ProjectHooks = require('./hooks/project-hooks');
 
 // hooks
 //user
 Parse.Cloud.beforeSave(Parse.User, UserHooks.beforeSave);
+
+// project
+Parse.Cloud.beforeSave('Projects', ProjectHooks.beforeSave);
 
 // profile
 Parse.Cloud.afterSave("Profile", Chat.createUser);
@@ -47,5 +49,6 @@ Parse.Cloud.define('Chat.getUserChatRooms', Chat.getUserChatRooms);
 Parse.Cloud.define('generateToken', Layer.generateToken);
 
 // jobs
-Parse.Cloud.job('mapProfiles', MapProfiles);
-Parse.Cloud.job('fixProjectProfileReference', FixProjecProfileReference);
+Parse.Cloud.job('mapProfiles', ProfileJobs.MapProfiles);
+Parse.Cloud.job('fixProjectProfileReference', ProjectJobs.FixProjectProfileReference);
+Parse.Cloud.job('fixProjectUserReference', ProjectJobs.FixProjectUserReference);

@@ -40,7 +40,6 @@ const getFacebookData = async (object, resp) => {
 };
 
 const beforeSave = async (req, resp) => {
-    req.master = true;
     const user = req.object;
 
     try {

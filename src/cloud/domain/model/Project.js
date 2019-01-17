@@ -1,4 +1,11 @@
-const User = require('./User');
+const UrlHelper = require('../helpers/UrlHelper');
+
+function getProfilePictureUrl(profilePicture) {
+    if (!profilePicture)
+        return "";
+    const url = profilePicture.url();
+    return UrlHelper.stripResourceFromUri(url);
+}
 
 const mapFromParseV1 = (project) => {
     const id = project.id;
@@ -8,6 +15,8 @@ const mapFromParseV1 = (project) => {
 
     const profile = project.get('user');
     let profilePicture = project.get('userImageProfile');
+
+    const profilePictureUrl = getProfilePictureUrl(profilePicture);
 
     if (!profile) {
         return {
@@ -19,7 +28,7 @@ const mapFromParseV1 = (project) => {
                 id: project.get('userID'),
                 fullName: project.get('userName'),
                 location: project.get('userLocation'),
-                profilePictureUrl: profilePicture ? profilePicture.url() : ""
+                profilePictureUrl: profilePictureUrl
             }
         };
     }
@@ -32,8 +41,12 @@ const mapFromParseV1 = (project) => {
         profile: {
             id: profile.id,
             fullName: `${profile.get('firstName')} ${profile.get('lastName')}`,
-            location: profile.get('location'),
-            profilePictureUrl: profilePicture ? profilePicture.url() : ""
+            profilePictureUrl: profilePictureUrl,
+            location: {
+                country: profile.get('country'),
+                city: profile.get('city'),
+                location: profile.get('location')
+            }
         }
     };
 };
@@ -68,6 +81,6 @@ const mapFromParse = (project, profile) => {
 };
 
 module.exports = {
-    mapFromParse,
-    mapFromParseV1
+    mapFromParseV1,
+    mapFromParse
 };

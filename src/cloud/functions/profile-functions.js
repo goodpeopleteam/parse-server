@@ -67,7 +67,7 @@ const getById = async (req, res) => {
     const id = req.params.id;
 
     try {
-        res.success(await ProfileService.get(id))
+        res.success(await UserService.getById(id))
     } catch (e) {
         res.error(e.message);
     }
@@ -77,7 +77,7 @@ const search = async (req, res) => {
     const term = req.params.term;
 
     try {
-        res.success(await ProfileService.search(term))
+        res.success(await UserService.search(term))
     } catch (e) {
         res.error(e.message);
     }

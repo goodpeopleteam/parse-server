@@ -22,8 +22,10 @@ const get = async (page) => {
 
 const getById = async (id) => {
     try {
-        return await QueryCreator.createQuery('User')
+        const user = await QueryCreator.createQuery('User')
             .get(id, {useMasterKey: true});
+
+        return User.mapFromParse(user);
     } catch (e) {
         console.log(e.message);
         return null;
@@ -53,9 +55,29 @@ const count = async () => {
     }
 };
 
+const search = async (term) => {
+    try {
+        const firstNameQuery = QueryCreator.createQuery('User');
+        firstNameQuery.startsWith('firstName', term);
+
+        const lastNameQuery = QueryCreator.createQuery('User');
+        lastNameQuery.startsWith('lastName', term);
+
+        const query = Parse.Query.or(firstNameQuery, lastNameQuery);
+        query.descending('createdAt');
+
+        const results = await query.find({useMasterKey: true});
+        return results.map(p => User.mapFromParse(p));
+    } catch (e) {
+        console.log(e.message);
+        throw e;
+    }
+};
+
 module.exports = {
     get,
     getById,
     find,
-    count
+    count,
+    search
 };

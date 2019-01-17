@@ -45,7 +45,7 @@ const getById = async (req, res) => {
     const id = req.params.id;
 
     try {
-        res.success(ProjectService.get(id));
+        res.success(await ProjectService.getById(id));
     } catch (e) {
         res.error(e.message);
     }

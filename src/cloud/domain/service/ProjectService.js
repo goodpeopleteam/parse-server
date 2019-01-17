@@ -28,8 +28,9 @@ const add = async (params) => {
 const getById = async (id) => {
     try {
         const query = createProjectQuery();
+        query.include("user", { userMasterKey: true });
 
-        return Project.mapFromParse(await query.get(id));
+        return Project.mapFromParseV1(await query.get(id));
     } catch (e) {
         console.log(e.message);
         throw e;

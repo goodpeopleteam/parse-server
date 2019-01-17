@@ -1,5 +1,6 @@
 const _ = require('lodash');
 const Profile = require('../domain/model/Profile');
+const User = require('../domain/model/User');
 const UserService = require('../domain/service/UserService');
 const FavoriteService = require('../domain/service/FavoriteService');
 const ProfileService = require('../domain/service/ProfileService');
@@ -49,18 +50,30 @@ const myFavorites = async (req, res) => {
     const userId = req.user.id;
 
     try {
+        // database v2
+        // const favoriteEntry = await FavoriteService.getByUserId(userId);
+        // const favoriteIds = favoriteEntry.get('favorites');
+        //
+        // const userQueries = [];
+        // for (let i = 0; i < favoriteIds.length; i++) {
+        //     userQueries.push(UserService.getById(favoriteIds[i].id));
+        // }
+        //
+        // const result = await Promise.when(userQueries);
+        //
+        // res.success(result.map(x => Profile.mapFromParse(x)));
 
-        const favoriteEntry = await FavoriteService.getByUserId(userId);
-        const favoriteIds = favoriteEntry.get('favorites');
+        const favoriteEntries = req.user.get('favorites');
 
         const userQueries = [];
-        for (let i = 0; i < favoriteIds.length; i++) {
-            userQueries.push(ProfileService.getByUserId(favoriteIds[i].id));
+        for (let i = 0; i < favoriteEntries.length; i++) {
+            userQueries.push(UserService.getById(favoriteEntries[i].id));
         }
 
-        const result = await Promise.when(userQueries);
+        const result = await Promise.all(userQueries);
 
-        res.success(result.map(x => Profile.mapFromParse(x)));
+        res.success(result);
+
     } catch (e) {
         res.error(e.message);
     }

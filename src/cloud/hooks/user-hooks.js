@@ -46,6 +46,8 @@ const beforeSave = async (req, resp) => {
         setUserCompleteName(user);
         setUserSanitizedSkills(user);
         //await getFacebookData(object, resp);
+
+        resp.success();
     } catch (e) {
         resp.error(e.message);
     }

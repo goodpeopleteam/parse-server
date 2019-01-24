@@ -15,7 +15,7 @@ const ProjectHooks = require('./hooks/project-hooks');
 Parse.Cloud.beforeSave(Parse.User, UserHooks.beforeSave);
 
 // project
-Parse.Cloud.beforeSave('Projects', ProjectHooks.beforeSave);
+Parse.Cloud.afterSave('Projects', ProjectHooks.afterSave);
 
 // profile
 Parse.Cloud.afterSave("Profile", Chat.createUser);

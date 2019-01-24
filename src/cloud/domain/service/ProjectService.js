@@ -13,12 +13,12 @@ const add = async (params) => {
         const p = new ParseProject();
 
         p.set('title', params.data.title);
+        p.set('detailedDescription', params.data.description);
         p.set('description', params.data.description);
-        p.set('requiredTalents', params.data.requiredTalents);
-        p.set('user', params.user);
-        p.set('profile', params.profile);
+        p.set('skillsNeeded', params.data.requiredTalents);
+        p.set('user', params.data.user);
 
-        return await p.add();
+        return await p.save();
     } catch (e) {
         console.log(e.message);
         throw e;
@@ -52,13 +52,11 @@ const get = async (page) => {
     }
 };
 
-const getUsersProjects = async (userId) => {
+const getUsersProjects = async (user) => {
     try {
         const projectQuery = createProjectQuery();
 
-        const user = new Parse.User();
-        user.id = userId;
-
+        projectQuery.include("user", { useMasterKey: true });
         projectQuery.equalTo('user', user);
         projectQuery.descending('createdAt');
 

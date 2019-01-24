@@ -4,26 +4,20 @@ const UserService = require('../domain/service/UserService');
 const ProfileService = require('../domain/service/ProfileService');
 
 const create = async (req, res) => {
-    const userId = req.user.id;
+    const user = req.user;
     const projectParam = req.params.project;
 
     try {
-        const result = await Promise.when([
-            UserService.get(userId),
-            ProfileService.getByUserId(userId)
-        ]);
-
         const project = await ProjectService.add({
             data: {
                 title: projectParam.title,
                 description: projectParam.description,
-                requiredTalents: projectParam.requiredTalents
-            },
-            user: result[0],
-            profile: result[1]
+                requiredTalents: projectParam.requiredTalents,
+                user: user
+            }
         });
 
-        res.success(project);
+        res.success(Project.mapFromParseV1(project));
     } catch (e) {
         res.error(e.message);
     }
@@ -52,18 +46,12 @@ const getById = async (req, res) => {
 };
 
 const myProjects = async (req, res) => {
-    const userId = req.user.id;
+    const user = req.user;
 
     try {
-        const result = await Promise.when([
-            ProfileService.getByUserId(userId),
-            ProjectService.getUsersProjects(userId)
-        ]);
+        const result = await ProjectService.getUsersProjects(user);
 
-        const profile = result[0];
-        const parseProjects = result[1];
-
-        res.success(parseProjects.map(p => Project.mapFromParse(p, profile)));
+        res.success(result.map(p => Project.mapFromParseV1(p)));
     } catch (e) {
         res.error(e.message);
     }

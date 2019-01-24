@@ -4,7 +4,7 @@ function getProfilePictureUrl(profilePicture) {
     if (!profilePicture)
         return "";
     const url = profilePicture.url();
-    return UrlHelper.stripResourceFromUri(url);
+    return url;
 }
 
 const mapFromParseV1 = (project) => {
@@ -40,6 +40,8 @@ const mapFromParseV1 = (project) => {
         requiredTalents: skillsNeeded,
         profile: {
             id: profile.id,
+            firstName: profile.get('firstName').trim(),
+            lastName: profile.get('lastName').trim(),
             fullName: `${profile.get('firstName')} ${profile.get('lastName')}`,
             profilePictureUrl: profilePictureUrl,
             location: {

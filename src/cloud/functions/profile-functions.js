@@ -1,4 +1,5 @@
 const Profile = require('../domain/model/Profile');
+const User = require('../domain/model/User');
 const UserService = require('../domain/service/UserService');
 const ProfileService = require('../domain/service/ProfileService');
 
@@ -25,39 +26,41 @@ const create = async (req, res) => {
 };
 
 const upsertAbout = async (req, res) => {
-    const profileId = req.params.profileId;
+    const user = req.user;
     const about = req.params.about;
 
     try {
-        const profile = ProfileService.get(profileId);
-        profile.set('about', about);
+        user.set('about', about);
 
-        res.success(Profile.mapFromParse(await profile.add()));
+        const savedUser = await user.save(null, { useMasterKey: true });
+
+        res.success(User.mapFromParse(savedUser));
     } catch (e) {
         res.error(e.message);
     }
 };
 
 const upsertTalents = async (req, res) => {
-    const profileId = req.params.profileId;
+    const user = req.user;
     const talents = req.params.talents;
 
     try {
-        const p = await ProfileService.get(profileId);
+        user.set('skills', talents);
 
-        p.set('talents', talents);
+        const savedUser = await user.save(null, { useMasterKey: true });
 
-        res.success(Profile.mapFromParse(await p.add()));
+        res.success(User.mapFromParse(savedUser));
     } catch (e) {
         res.error(e.message);
     }
 };
 
 const get = async (req, res) => {
+    const userId = req.user.id;
     const page = req.params.page;
 
     try {
-        res.success(await UserService.get(page));
+        res.success(await UserService.get(userId, page));
     } catch (e) {
         res.error(e.message);
     }

@@ -1,12 +1,13 @@
 const User = require('../model/User');
 const QueryCreator = require('../helpers/QueryCreator');
 
-const get = async (page) => {
+const get = async (userId, page) => {
     const pageSize = 20;
 
     try {
         const query = QueryCreator.createQuery('User');
 
+        query.notEqualTo("objectId", userId);
         query.limit(pageSize);
         query.skip(page * pageSize);
         query.descending('createdAt');

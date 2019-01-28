@@ -24,10 +24,11 @@ const create = async (req, res) => {
 };
 
 const get = async (req, res) => {
+    const userId = req.user.id;
     const page = req.params.page;
 
     try {
-        const parseProjects = await ProjectService.get(page);
+        const parseProjects = await ProjectService.get(userId, page);
 
         res.success(parseProjects.map(p => Project.mapFromParseV1(p)));
     } catch (e) {

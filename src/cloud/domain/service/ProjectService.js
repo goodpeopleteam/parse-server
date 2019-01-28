@@ -37,10 +37,14 @@ const getById = async (id) => {
     }
 };
 
-const get = async (page) => {
+const get = async (userId, page) => {
     try {
         const projectQuery = createProjectQuery();
 
+        const user = new Parse.User();
+        user.id = userId;
+
+        projectQuery.notEqualTo("user", user);
         projectQuery.limit(10);
         projectQuery.skip(PAGE_SIZE * page);
         projectQuery.include("user", { userMasterKey: true });

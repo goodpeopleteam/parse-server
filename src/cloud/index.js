@@ -35,6 +35,8 @@ Parse.Cloud.define('Project.get', Project.get);
 Parse.Cloud.define('Project.getById', Project.getById);
 Parse.Cloud.define('Project.myProjects', Project.myProjects);
 Parse.Cloud.define('Project.search', Project.search);
+Parse.Cloud.define('Project.update', Project.update);
+Parse.Cloud.define('Project.delete', Project.destroy);
 
 // favorite functions
 Parse.Cloud.define('Favorite.add', Favorite.add);

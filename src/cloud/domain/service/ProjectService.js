@@ -30,7 +30,7 @@ const getById = async (id) => {
         const query = createProjectQuery();
         query.include("user", { userMasterKey: true });
 
-        return Project.mapFromParseV1(await query.get(id));
+        return await query.get(id);
     } catch (e) {
         console.log(e.message);
         throw e;

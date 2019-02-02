@@ -24,11 +24,11 @@ const create = async (req, res) => {
 };
 
 const get = async (req, res) => {
-    const userId = req.user.id;
+    const user = req.user;
     const page = req.params.page;
 
     try {
-        const parseProjects = await ProjectService.get(userId, page);
+        const parseProjects = await ProjectService.get(user.id, page);
 
         res.success(parseProjects.map(p => Project.mapFromParseV1(p)));
     } catch (e) {
@@ -37,10 +37,13 @@ const get = async (req, res) => {
 };
 
 const getById = async (req, res) => {
+    const user = req.user;
     const id = req.params.id;
 
     try {
-        res.success(await ProjectService.getById(id));
+        const project = await ProjectService.getById(id);
+
+        res.success(Project.mapFromParseV1(project));
     } catch (e) {
         res.error(e.message);
     }
@@ -62,7 +65,41 @@ const search = async (req, res) => {
     const term = req.params.term;
 
     try {
-        res.success(await ProjectService.search(term))
+        const searchResult = await ProjectService.search(term);
+        res.success(searchResult.map(Project.mapFromParseV1));
+    } catch (e) {
+        res.error(e.message);
+    }
+};
+
+const update = async (req, res) => {
+    const user = req.user;
+    const projectId = req.params.projectId;
+    const fieldToUpdate = req.params.field;
+    const value = req.params.value;
+
+    try {
+        const proj = await ProjectService.getById(projectId);
+
+        proj.set(fieldToUpdate, value);
+
+        const savedProj = await proj.save();
+
+        res.success(Project.mapFromParseV1(savedProj));
+    } catch (e) {
+        res.error(e.message);
+    }
+};
+
+const destroy = async (req, res) => {
+    const user = req.user;
+    const projectId = req.params.projectId;
+
+    try {
+        const project = await ProjectService.getById(projectId);
+        await project.destroy();
+
+        res.success();
     } catch (e) {
         res.error(e.message);
     }
@@ -73,5 +110,7 @@ module.exports = {
     get,
     getById,
     myProjects,
-    search
+    search,
+    update,
+    destroy
 };

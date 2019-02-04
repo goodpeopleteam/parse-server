@@ -13,6 +13,7 @@ const ProjectHooks = require('./hooks/project-hooks');
 // hooks
 //user
 Parse.Cloud.beforeSave(Parse.User, UserHooks.beforeSave);
+Parse.Cloud.afterSave(Parse.User, UserHooks.afterSave);
 
 // project
 Parse.Cloud.afterSave('Projects', ProjectHooks.afterSave);
@@ -44,7 +45,7 @@ Parse.Cloud.define('Favorite.hasFavorite', Favorite.hasFavorite);
 Parse.Cloud.define('Favorite.myFavorites', Favorite.myFavorites);
 
 // chat functions
-Parse.Cloud.define('Chat.createChatRoom', Chat.createChatRoom);
+Parse.Cloud.define('Chat.startChat', Chat.startChat);
 Parse.Cloud.define('Chat.getUserChatRooms', Chat.getUserChatRooms);
 
 // layer functions

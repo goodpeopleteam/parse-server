@@ -2,32 +2,30 @@ const admin = require('firebase-admin');
 const FieldValue = require('firebase-admin').firestore.FieldValue;
 const ProfileService = require('../service/ProfileService');
 
-const serviceAccount = require("../../../../firestore-test-c98c5-firebase-adminsdk-8ew9t-6534eb3770.json");
+const firebaseConfig = require("../../../../goodpeople-dev-firebase-adminsdk-obnse-0f169a9ef8");
 
-const firebaseApp = admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-    databaseURL: "https://firestore-test-c98c5.firebaseio.com"
+admin.initializeApp({
+    credential: admin.credential.cert(firebaseConfig),
+    databaseURL: "https://goodpeople-dev.firebaseio.com"
 });
 
-const db = admin.firestore(firebaseApp);
+const db = admin.firestore();
 
-let addChatRoomToUser = async (userProfile, recipientProfile, chatRoomRef) => {
-    const userRef = db.collection('users').doc(userProfile.email);
+const addChatRoomToUser = async (userProfile, recipientProfile, chatRoomRef) => {
+    const chatRoomsRef = db
+        .collection('users')
+        .doc(userProfile.email)
+        .collection('chatRooms')
+        .doc(recipientProfile.email);
 
-    const userData = (await userRef.get()).data();
-
-    const chatRooms = userData.chatRooms || [];
-    chatRooms.push({
+    await chatRoomsRef.set({
         title: `${recipientProfile.firstName} ${recipientProfile.lastName}`,
+        roomAvatar: recipientProfile.profilePictureUrl,
         ref: chatRoomRef
-    });
-
-    await userRef.update({
-        chatRooms: chatRooms
     });
 };
 
-let getUserChatRooms = async (userId) => {
+const getUserChatRooms = async (userId) => {
     const profile = await ProfileService.getByUserId(userId);
 
     const userDoc = await db
@@ -46,7 +44,7 @@ let getUserChatRooms = async (userId) => {
     })
 };
 
-let createChatRoom = async (senderEmail, recipientEmail) => {
+const createChatRoom = async (senderEmail, recipientEmail) => {
     const chatRooms = db
         .collection('chatRooms');
 
@@ -58,25 +56,36 @@ let createChatRoom = async (senderEmail, recipientEmail) => {
     return await chatRooms.add({
         createdAt: FieldValue.serverTimestamp(),
         participants: participants
-    })
+    });
 };
 
-let createUser = async (senderProfile) => {
+const getChatRoom = async (userEmail, recipientEmail) => {
+    const chatRoom = db
+        .collection('users')
+        .doc(userEmail)
+        .collection('chatRooms')
+        .doc(recipientEmail);
+
+    return await chatRoom.get();
+};
+
+const createUser = async (p) => {
     const userRef = db
         .collection('users')
-        .doc(senderProfile.email);
+        .doc(p.email);
 
     await userRef
-        .set(mapToFirebaseUser(senderProfile), {merge: true});
+        .set(mapToFirebaseUser(p), { merge: true });
 
     return userRef;
 };
 
-let mapToFirebaseUser = (senderProfile) => {
+const mapToFirebaseUser = p => {
     return {
-        email: senderProfile.email,
-        firstName: senderProfile.firstName,
-        lastName: senderProfile.lastName
+        email: p.email,
+        firstName: p.firstName,
+        lastName: p.lastName,
+        photoUrl: p.profilePictureUrl
     };
 };
 
@@ -84,5 +93,6 @@ module.exports = {
     createUser,
     createChatRoom,
     addChatRoomToUser,
-    getUserChatRooms
+    getUserChatRooms,
+    getChatRoom
 };

@@ -1,20 +1,17 @@
-const profileService = require('../domain/service/ProfileService');
 const UserService = require('../domain/service/UserService');
 const ChatService = require('../domain/service/ChatService');
 const Profile = require('../domain/model/Profile');
 
-const createUser = async (req, res) => {
+const createUser = async (req) => {
     try {
         const savedProfile = req.object;
         await ChatService.createUser(Profile.mapFromParse(savedProfile));
-
-        res.success();
     } catch (e) {
-        res.error(e.message);
+        throw e;
     }
 };
 
-const startChat = async (req, res) => {
+const startChat = async (req) => {
     try {
         const senderId = req.user.id;
         const recipientId = req.params.recipientId;
@@ -29,10 +26,10 @@ const startChat = async (req, res) => {
 
         const existingChatRoom = await ChatService.getChatRoom(senderProfile.email, recipientProfile.email);
         if (existingChatRoom.exists) {
-            res.success({
+            return {
                 roomPath: existingChatRoom.data()["ref"]["path"],
                 roomAvatar: existingChatRoom.data()["roomAvatar"]
-            });
+            };
         } else {
             const chatRoomRef = await ChatService.createChatRoom(senderProfile.email, recipientProfile.email);
 
@@ -41,27 +38,17 @@ const startChat = async (req, res) => {
                 ChatService.addChatRoomToUser(recipientProfile, senderProfile, chatRoomRef)
             ]);
 
-            res.success({
+            return {
                 roomPath: chatRoomRef.path,
                 roomAvatar: recipientProfile.profilePictureUrl
-            });
+            };
         }
     } catch (e) {
-        res.error(e.message);
-    }
-};
-
-const getUserChatRooms = async (req, res) => {
-    try {
-        const rooms = await ChatService.getUserChatRooms(req.user.id);
-        res.success(rooms);
-    } catch (e) {
-        res.error(e.message);
+        throw e;
     }
 };
 
 module.exports = {
     startChat,
-    getUserChatRooms,
     createUser
 };

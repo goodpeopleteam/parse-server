@@ -1,9 +1,8 @@
-const Profile = require('../domain/model/Profile');
 const User = require('../domain/model/User');
 const UserService = require('../domain/service/UserService');
 const ProfileService = require('../domain/service/ProfileService');
 
-const create = async (req, res) => {
+const create = async (req) => {
     req.master = true;
 
     const userId = req.user.id;
@@ -12,20 +11,18 @@ const create = async (req, res) => {
     try {
         const user = await UserService.get(userId);
 
-        const saveProfile = await ProfileService.save({
+        return await ProfileService.save({
             user,
             email: user.getEmail(),
             firstName: p.firstName,
             lastName: p.lastName
         });
-
-        res.success(saveProfile);
     } catch (e) {
-        res.error(e.message);
+        throw e;
     }
 };
 
-const upsertAbout = async (req, res) => {
+const upsertAbout = async (req) => {
     const user = req.user;
     const about = req.params.about;
 
@@ -34,13 +31,13 @@ const upsertAbout = async (req, res) => {
 
         const savedUser = await user.save(null, { useMasterKey: true });
 
-        res.success(User.mapFromParse(savedUser));
+        return User.mapFromParse(savedUser);
     } catch (e) {
-        res.error(e.message);
+        throw e;
     }
 };
 
-const upsertTalents = async (req, res) => {
+const upsertTalents = async (req) => {
     const user = req.user;
     const talents = req.params.talents;
 
@@ -49,40 +46,40 @@ const upsertTalents = async (req, res) => {
 
         const savedUser = await user.save(null, { useMasterKey: true });
 
-        res.success(User.mapFromParse(savedUser));
+        return User.mapFromParse(savedUser);
     } catch (e) {
-        res.error(e.message);
+        throw e;
     }
 };
 
-const get = async (req, res) => {
+const get = async (req) => {
     const userId = req.user.id;
     const page = req.params.page;
 
     try {
-        res.success(await UserService.get(userId, page));
+        return await UserService.get(userId, page);
     } catch (e) {
-        res.error(e.message);
+        throw e;
     }
 };
 
-const getById = async (req, res) => {
+const getById = async (req) => {
     const id = req.params.id;
 
     try {
-        res.success(await UserService.getById(id))
+        return await UserService.getById(id);
     } catch (e) {
-        res.error(e.message);
+        throw e;
     }
 };
 
-const search = async (req, res) => {
+const search = async (req) => {
     const term = req.params.term;
 
     try {
-        res.success(await UserService.search(term))
+        return await UserService.search(term);
     } catch (e) {
-        res.error(e.message);
+        throw e;
     }
 };
 

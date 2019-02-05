@@ -23,30 +23,30 @@ Parse.Cloud.afterSave("Profile", Chat.createUser);
 
 // cloud functions
 // profile functions
-Parse.Cloud.define('Profile.create', Profile.create);
-Parse.Cloud.define('Profile.upsertAbout', Profile.upsertAbout);
-Parse.Cloud.define('Profile.upsertTalents', Profile.upsertTalents);
-Parse.Cloud.define('Profile.get', Profile.get);
-Parse.Cloud.define('Profile.getById', Profile.getById);
-Parse.Cloud.define('Profile.search', Profile.search);
+Parse.Cloud.define('Profile_create', Profile.create);
+Parse.Cloud.define('Profile_upsertAbout', Profile.upsertAbout);
+Parse.Cloud.define('Profile_upsertTalents', Profile.upsertTalents);
+Parse.Cloud.define('Profile_get', Profile.get);
+Parse.Cloud.define('Profile_getById', Profile.getById);
+Parse.Cloud.define('Profile_search', Profile.search);
 
 // project functions
-Parse.Cloud.define('Project.create', Project.create);
-Parse.Cloud.define('Project.get', Project.get);
-Parse.Cloud.define('Project.getById', Project.getById);
-Parse.Cloud.define('Project.myProjects', Project.myProjects);
-Parse.Cloud.define('Project.search', Project.search);
-Parse.Cloud.define('Project.update', Project.update);
-Parse.Cloud.define('Project.delete', Project.destroy);
+Parse.Cloud.define('Project_create', Project.create);
+Parse.Cloud.define('Project_get', Project.get);
+Parse.Cloud.define('Project_getById', Project.getById);
+Parse.Cloud.define('Project_myProjects', Project.myProjects);
+Parse.Cloud.define('Project_search', Project.search);
+Parse.Cloud.define('Project_update', Project.update);
+Parse.Cloud.define('Project_delete', Project.destroy);
 
 // favorite functions
-Parse.Cloud.define('Favorite.add', Favorite.add);
-Parse.Cloud.define('Favorite.hasFavorite', Favorite.hasFavorite);
-Parse.Cloud.define('Favorite.myFavorites', Favorite.myFavorites);
+Parse.Cloud.define('Favorite_add', Favorite.add);
+Parse.Cloud.define('Favorite_hasFavorite', Favorite.hasFavorite);
+Parse.Cloud.define('Favorite_myFavorites', Favorite.myFavorites);
 
 // chat functions
-Parse.Cloud.define('Chat.startChat', Chat.startChat);
-Parse.Cloud.define('Chat.getUserChatRooms', Chat.getUserChatRooms);
+Parse.Cloud.define('Chat_startChat', Chat.startChat);
+Parse.Cloud.define('Chat_getUserChatRooms', Chat.getUserChatRooms);
 
 // layer functions
 Parse.Cloud.define('generateToken', Layer.generateToken);

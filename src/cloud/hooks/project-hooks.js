@@ -10,15 +10,13 @@ const addUserReference = async proj => {
     return await proj.save();
 };
 
-const afterSave = async (req, resp) => {
+const afterSave = async (req) => {
     const proj = req.object;
 
     try {
-        const savedProject = await addUserReference(proj);
-        resp.success(savedProject);
+        return await addUserReference(proj);
     } catch (e) {
-        console.log(e.message);
-        resp.error(e.code, e.message);
+        throw e;
     }
 };
 

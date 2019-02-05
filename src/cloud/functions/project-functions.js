@@ -1,9 +1,7 @@
 const Project = require('../domain/model/Project');
 const ProjectService = require('../domain/service/ProjectService');
-const UserService = require('../domain/service/UserService');
-const ProfileService = require('../domain/service/ProfileService');
 
-const create = async (req, res) => {
+const create = async (req) => {
     const user = req.user;
     const projectParam = req.params.project;
 
@@ -17,35 +15,35 @@ const create = async (req, res) => {
             }
         });
 
-        res.success(Project.mapFromParseV1(project));
+        return Project.mapFromParseV1(project);
     } catch (e) {
-        res.error(e.message);
+        throw e;
     }
 };
 
-const get = async (req, res) => {
+const get = async (req) => {
     const user = req.user;
     const page = req.params.page;
 
     try {
         const parseProjects = await ProjectService.get(user.id, page);
 
-        res.success(parseProjects.map(p => Project.mapFromParseV1(p)));
+        return parseProjects.map(p => Project.mapFromParseV1(p));
     } catch (e) {
-        res.error(e.message);
+        throw e;
     }
 };
 
-const getById = async (req, res) => {
+const getById = async (req) => {
     const user = req.user;
     const id = req.params.id;
 
     try {
         const project = await ProjectService.getById(id);
 
-        res.success(Project.mapFromParseV1(project));
+        return Project.mapFromParseV1(project);
     } catch (e) {
-        res.error(e.message);
+        throw e;
     }
 };
 
@@ -55,24 +53,24 @@ const myProjects = async (req, res) => {
     try {
         const result = await ProjectService.getUsersProjects(user);
 
-        res.success(result.map(p => Project.mapFromParseV1(p)));
+        return result.map(p => Project.mapFromParseV1(p));
     } catch (e) {
-        res.error(e.message);
+        throw e;
     }
 };
 
-const search = async (req, res) => {
+const search = async (req) => {
     const term = req.params.term;
 
     try {
         const searchResult = await ProjectService.search(term);
-        res.success(searchResult.map(Project.mapFromParseV1));
+        return searchResult.map(Project.mapFromParseV1);
     } catch (e) {
-        res.error(e.message);
+        throw e;
     }
 };
 
-const update = async (req, res) => {
+const update = async (req) => {
     const user = req.user;
     const projectId = req.params.projectId;
     const fieldToUpdate = req.params.field;
@@ -85,23 +83,21 @@ const update = async (req, res) => {
 
         const savedProj = await proj.save();
 
-        res.success(Project.mapFromParseV1(savedProj));
+        return Project.mapFromParseV1(savedProj);
     } catch (e) {
-        res.error(e.message);
+        throw e;
     }
 };
 
-const destroy = async (req, res) => {
+const destroy = async (req) => {
     const user = req.user;
     const projectId = req.params.projectId;
 
     try {
         const project = await ProjectService.getById(projectId);
         await project.destroy();
-
-        res.success();
     } catch (e) {
-        res.error(e.message);
+        throw e;
     }
 };
 

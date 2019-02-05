@@ -40,30 +40,26 @@ const getFacebookData = async user => {
     user.set('lastName', response.last_name);
 };
 
-const beforeSave = async (req, resp) => {
+const beforeSave = async (req) => {
     let user = req.object;
 
     try {
         await getFacebookData(user);
         setUserCompleteName(user);
         setUserSanitizedSkills(user);
-
-        resp.success();
     } catch (e) {
-        resp.error(e.message);
+        throw e;
     }
 };
 
-const afterSave = async (req, resp) => {
+const afterSave = async (req) => {
     let user = req.object;
 
     try {
         const profile = await UserService.getById(user.id);
         await ChatService.createUser(profile);
-
-        resp.success();
     } catch (e) {
-        resp.error(e.message);
+        throw e;
     }
 };
 

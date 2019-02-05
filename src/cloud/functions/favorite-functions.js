@@ -1,11 +1,8 @@
 const _ = require('lodash');
-const Profile = require('../domain/model/Profile');
-const User = require('../domain/model/User');
 const UserService = require('../domain/service/UserService');
 const FavoriteService = require('../domain/service/FavoriteService');
-const ProfileService = require('../domain/service/ProfileService');
 
-const add = async (req, res) => {
+const add = async (req) => {
     const userId = req.user.id;
     const favoriteId = req.params.favoriteId;
 
@@ -21,14 +18,12 @@ const add = async (req, res) => {
 
             await existingFavorite.add();
         }
-
-        res.success('success');
     } catch (e) {
-        res.error(e.message);
+        throw e;
     }
 };
 
-const hasFavorite = async (req, res) => {
+const hasFavorite = async (req) => {
     const userId = req.user.id;
     const favoriteId = req.params.favoriteId;
 
@@ -36,17 +31,16 @@ const hasFavorite = async (req, res) => {
         const existingFavorite = await FavoriteService.getByUserId(userId);
 
         if (!existingFavorite) {
-            res.success(false);
+            return false;
         } else {
-            const isFavorite = _.find(existingFavorite.get('favorites'), f => f.id === favoriteId);
-            res.success(isFavorite);
+            return _.find(existingFavorite.get('favorites'), f => f.id === favoriteId);
         }
     } catch (e) {
-        res.error(e.message);
+        throw e;
     }
 };
 
-const myFavorites = async (req, res) => {
+const myFavorites = async (req) => {
     const userId = req.user.id;
 
     try {
@@ -70,12 +64,9 @@ const myFavorites = async (req, res) => {
             userQueries.push(UserService.getById(favoriteEntries[i].id));
         }
 
-        const result = await Promise.all(userQueries);
-
-        res.success(result);
-
+        return await Promise.all(userQueries);
     } catch (e) {
-        res.error(e.message);
+        throw e;
     }
 };
 

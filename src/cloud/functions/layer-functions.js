@@ -8,14 +8,14 @@ const privateKey = fs.readFileSync(path.resolve(__dirname, '../layer-parse-modul
 
 layer.initialize(layerProviderID, layerKeyID, privateKey);
 
-const generateToken = (request, response) => {
-    var nonce = request.params.nonce;
+const generateToken = (request) => {
+    const nonce = request.params.nonce;
     if (!nonce) throw new Error('Missing nonce parameter');
 
-    var currentUser = request.user;
+    const currentUser = request.user;
     if (!currentUser) throw new Error('You need to be logged in!');
 
-    response.success(layer.layerIdentityToken(currentUser, nonce));
+    return layer.layerIdentityToken(currentUser, nonce);
 };
 
 module.exports = {

@@ -6,17 +6,17 @@ const app = express();
 const api = Parse.ParseServer({
     databaseURI: process.env.DB_ENDPOINT,
     cloud: './src/cloud/index.js',
-    appId: 'app_id',
-    masterKey: 'master_key',
-    serverURL: 'http://localhost:1337/parse'
+    appId: process.env.APP_ID,
+    masterKey: process.env.MASTER_KEY,
+    serverURL: `${process.env.SERVER_URL}/parse`
 });
 
 app.use('/parse', api);
 
-app.listen(1337, (err) => {
+app.listen(process.env.PORT, (err) => {
     if (err) {
         return console.log(err);
     }
 
-    console.log('parse-server-example running on port 1337.');
+    console.log(`parse-server running on port ${process.env.PORT}.`);
 });

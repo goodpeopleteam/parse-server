@@ -1,6 +1,10 @@
-const UrlHelper = require('../helpers/UrlHelper');
+const User = require('./User');
 
-function getProfilePictureUrl(profilePicture) {
+function getProfilePictureUrl(profile, profilePicture) {
+    if (profile) {
+        return User.getProfilePictureUrl(profile);
+    }
+
     if (!profilePicture)
         return "";
     const url = profilePicture.url();
@@ -16,7 +20,7 @@ const mapFromParseV1 = (project) => {
     const profile = project.get('user');
     let profilePicture = project.get('userImageProfile');
 
-    const profilePictureUrl = getProfilePictureUrl(profilePicture);
+    const profilePictureUrl = getProfilePictureUrl(profile, profilePicture);
 
     if (!profile) {
         return {
@@ -33,6 +37,9 @@ const mapFromParseV1 = (project) => {
         };
     }
 
+    const firstName = profile.get('firstName') ? profile.get('firstName').trim() : '';
+    const lastName = profile.get('lastName') ? profile.get('lastName').trim() : '';
+
     return {
         id,
         title,
@@ -40,9 +47,9 @@ const mapFromParseV1 = (project) => {
         requiredTalents: skillsNeeded,
         profile: {
             id: profile.id,
-            firstName: profile.get('firstName').trim(),
-            lastName: profile.get('lastName').trim(),
-            fullName: `${profile.get('firstName')} ${profile.get('lastName')}`,
+            firstName: firstName,
+            lastName: lastName,
+            fullName: `${firstName} ${lastName}`,
             profilePictureUrl: profilePictureUrl,
             location: {
                 country: profile.get('country'),

@@ -75,10 +75,11 @@ const search = async (term) => {
     try {
         const query = createProjectQuery();
 
+        query.include('user');
         query.fullText('title', term);
         query.fullText('description', term);
 
-        return await query.find();
+        return await query.find({ useMasterKey: true });
     } catch (e) {
         console.log(e.message);
         throw e;

@@ -36,5 +36,6 @@ const getFacebookPictureUrl = (facebookId) => {
 };
 
 module.exports = {
-  mapFromParse
+  mapFromParse,
+  getProfilePictureUrl
 };

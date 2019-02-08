@@ -34,7 +34,8 @@ const getFacebookPictureUrl = (facebookId) => {
 };
 
 module.exports = {
-    mapFromParse
+    mapFromParse,
+    getProfilePictureUrl
 };
 
 // module.exports = class Profile {

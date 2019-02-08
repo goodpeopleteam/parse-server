@@ -2,25 +2,44 @@ const _ = require('lodash');
 const UserService = require('../domain/service/UserService');
 const FavoriteService = require('../domain/service/FavoriteService');
 
-const add = async (req) => {
-    const userId = req.user.id;
+const toggle = async (req) => {
+    const user = req.user;
     const favoriteId = req.params.favoriteId;
 
-    const favorite = await UserService.get(favoriteId);
-    const existingFavorite = await FavoriteService.getByUserId(userId);
-
     try {
-        if (!existingFavorite) {
-            await FavoriteService.addFavoriteToUser(userId, favorite);
-        } else {
-            const existingFavorites = existingFavorite.get('favorites');
-            existingFavorites.push(favorite);
+        const userFavorites = user.get('favorites') || [];
+        const hasFavorite = userFavorites.find(f => f.id === favoriteId);
 
-            await existingFavorite.add();
+        if (hasFavorite) {
+            _.remove(userFavorites, f => f.id === favoriteId);
+        } else {
+            const newFavorite = new Parse.User();
+            newFavorite.id = favoriteId;
+
+            userFavorites.push(newFavorite);
         }
+
+        user.set('favorites', userFavorites);
+        user.save(null, { useMasterKey: true });
     } catch (e) {
         throw e;
     }
+
+    // const favorite = await UserService.get(favoriteId);
+    // const existingFavorite = await FavoriteService.getByUserId(user);
+    //
+    // try {
+    //     if (!existingFavorite) {
+    //         await FavoriteService.addFavoriteToUser(user, favorite);
+    //     } else {
+    //         const existingFavorites = existingFavorite.get('favorites');
+    //         existingFavorites.push(favorite);
+    //
+    //         await existingFavorite.add();
+    //     }
+    // } catch (e) {
+    //     throw e;
+    // }
 };
 
 const hasFavorite = async (req) => {
@@ -41,7 +60,7 @@ const hasFavorite = async (req) => {
 };
 
 const myFavorites = async (req) => {
-    const userId = req.user.id;
+    const user = req.user;
 
     try {
         // database v2
@@ -57,7 +76,7 @@ const myFavorites = async (req) => {
         //
         // res.success(result.map(x => Profile.mapFromParse(x)));
 
-        const favoriteEntries = req.user.get('favorites');
+        const favoriteEntries = user.get('favorites');
 
         const userQueries = [];
         for (let i = 0; i < favoriteEntries.length; i++) {
@@ -71,7 +90,7 @@ const myFavorites = async (req) => {
 };
 
 module.exports = {
-    add,
+    toggle,
     hasFavorite,
     myFavorites
 };

@@ -40,7 +40,7 @@ Parse.Cloud.define('Project_update', Project.update);
 Parse.Cloud.define('Project_delete', Project.destroy);
 
 // favorite functions
-Parse.Cloud.define('Favorite_add', Favorite.add);
+Parse.Cloud.define('Favorite_toggle', Favorite.toggle);
 Parse.Cloud.define('Favorite_hasFavorite', Favorite.hasFavorite);
 Parse.Cloud.define('Favorite_myFavorites', Favorite.myFavorites);
 

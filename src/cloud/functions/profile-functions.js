@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const User = require('../domain/model/User');
 const UserService = require('../domain/service/UserService');
 const ProfileService = require('../domain/service/ProfileService');
@@ -64,10 +65,18 @@ const get = async (req) => {
 };
 
 const getById = async (req) => {
-    const id = req.params.id;
+    const user = req.user;
+    const profileId = req.params.id;
 
     try {
-        return await UserService.getById(id);
+        const profile = await UserService.getById(profileId);
+        if (user.id !== profile.id) {
+            profile.isFavorite = _.find(user.get('favorites'), f => f.id === profileId) !== undefined;
+        } else {
+            profile.isFavorite = false;
+        }
+
+        return profile;
     } catch (e) {
         throw e;
     }

@@ -23,6 +23,19 @@ const create = async (req) => {
     }
 };
 
+const update = async (req) => {
+    const user = req.user;
+    const fieldToUpdate = req.params.field;
+    const value = req.params.value;
+
+    try {
+        user.set(fieldToUpdate, value);
+        user.save(null, { useMasterKey: true });
+    } catch (e) {
+        throw e;
+    }
+};
+
 const upsertAbout = async (req) => {
     const user = req.user;
     const about = req.params.about;
@@ -94,6 +107,7 @@ const search = async (req) => {
 
 module.exports = {
     create,
+    update,
     upsertAbout,
     upsertTalents,
     get,

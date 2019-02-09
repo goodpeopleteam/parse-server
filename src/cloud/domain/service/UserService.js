@@ -12,7 +12,7 @@ const get = async (userId, page) => {
         query.skip(page * pageSize);
         query.descending('createdAt');
 
-        const profiles = await query.find({useMasterKey: true});
+        const profiles = await query.find({ useMasterKey: true });
 
         return profiles.map(u => User.mapFromParse(u));
     } catch (e) {
@@ -24,7 +24,7 @@ const get = async (userId, page) => {
 const getById = async (id) => {
     try {
         const user = await QueryCreator.createQuery('User')
-            .get(id, {useMasterKey: true});
+            .get(id, { useMasterKey: true });
 
         return User.mapFromParse(user);
     } catch (e) {
@@ -39,7 +39,7 @@ const find = async (skip) => {
         userQuery.skip(skip);
 
         return await userQuery
-            .find({useMasterKey: true});
+            .find({ useMasterKey: true });
     } catch (e) {
         console.log(e.message);
         throw e;
@@ -67,7 +67,7 @@ const search = async (term) => {
         const query = Parse.Query.or(firstNameQuery, lastNameQuery);
         query.descending('createdAt');
 
-        const results = await query.find({useMasterKey: true});
+        const results = await query.find({ useMasterKey: true });
         return results.map(p => User.mapFromParse(p));
     } catch (e) {
         console.log(e.message);

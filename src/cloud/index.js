@@ -24,6 +24,7 @@ Parse.Cloud.afterSave("Profile", Chat.createUser);
 // cloud functions
 // profile functions
 Parse.Cloud.define('Profile_create', Profile.create);
+Parse.Cloud.define('Profile_update', Profile.update);
 Parse.Cloud.define('Profile_upsertAbout', Profile.upsertAbout);
 Parse.Cloud.define('Profile_upsertTalents', Profile.upsertTalents);
 Parse.Cloud.define('Profile_get', Profile.get);

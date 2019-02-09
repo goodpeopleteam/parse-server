@@ -9,6 +9,7 @@ const mapFromParse = (x) => {
     favorites: x.get('favorites') || [],
     profilePictureUrl: getProfilePictureUrl(x),
     location: {
+      position: x.get('position'),
       location: x.get('location'),
       country: x.get('country'),
       city: x.get('city')

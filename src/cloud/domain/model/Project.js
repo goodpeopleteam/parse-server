@@ -37,26 +37,12 @@ const mapFromParseV1 = (project) => {
         };
     }
 
-    const firstName = profile.get('firstName') ? profile.get('firstName').trim() : '';
-    const lastName = profile.get('lastName') ? profile.get('lastName').trim() : '';
-
     return {
         id,
         title,
         description,
         requiredTalents: skillsNeeded,
-        profile: {
-            id: profile.id,
-            firstName: firstName,
-            lastName: lastName,
-            fullName: `${firstName} ${lastName}`,
-            profilePictureUrl: profilePictureUrl,
-            location: {
-                country: profile.get('country'),
-                city: profile.get('city'),
-                location: profile.get('location')
-            }
-        }
+        profile: User.mapFromParse(profile)
     };
 };
 

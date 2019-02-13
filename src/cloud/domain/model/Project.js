@@ -31,7 +31,7 @@ const mapFromParseV1 = (project) => {
             profile: {
                 id: project.get('userID'),
                 fullName: project.get('userName'),
-                location: project.get('userLocation'),
+                location: {},
                 profilePictureUrl: profilePictureUrl
             }
         };

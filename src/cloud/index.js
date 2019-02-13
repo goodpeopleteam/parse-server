@@ -54,5 +54,5 @@ Parse.Cloud.define('generateToken', Layer.generateToken);
 
 // jobs
 Parse.Cloud.job('mapProfiles', ProfileJobs.MapProfiles);
-Parse.Cloud.job('fixProjectProfileReference', ProjectJobs.FixProjectProfileReference);
 Parse.Cloud.job('fixProjectUserReference', ProjectJobs.FixProjectUserReference);
+Parse.Cloud.job('normalizeProjects', ProjectJobs.normalizeProjects);

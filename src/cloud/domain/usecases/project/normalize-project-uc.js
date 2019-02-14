@@ -1,4 +1,4 @@
-module.exports.normalizeProjectUc = (proj) => {
+module.exports.execute = (proj) => {
     const androidDescription = 'description';
     const iosDescription = 'detailedDescription';
 

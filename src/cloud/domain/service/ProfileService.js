@@ -1,6 +1,4 @@
 const QueryCreator = require('../helpers/QueryCreator');
-const Profile = require('../model/Profile');
-
 const CLASS_NAME = 'Profile';
 
 const createProfileQuery = () => {
@@ -21,9 +19,7 @@ const add = async (params) => {
         profile.set('firstName', params.firstName);
         profile.set('lastName', params.lastName);
 
-        const savedProfile = await profile.add();
-
-        return Profile.mapFromParse(savedProfile);
+        return await profile.add();
     } catch (e) {
         console.log(e.message);
         throw e;
@@ -32,10 +28,8 @@ const add = async (params) => {
 
 const get = async (id) => {
     try {
-        const p = await createProfileQuery()
+        return await createProfileQuery()
             .get(id);
-
-        return Profile.mapFromParse(p);
     } catch (e) {
         console.log(e.message);
         throw e;
@@ -51,9 +45,7 @@ const getByUserId = async (id) => {
 
         query.equalTo('user', user);
 
-        let parseProfile = await query.first();
-
-        return Profile.mapFromParse(parseProfile);
+        return await query.first();
     } catch (e) {
         console.log(e.message);
         throw e;
@@ -70,9 +62,7 @@ const fetch = async (page) => {
         query.skip(page * pageSize);
         query.descending('createdAt');
 
-        const profiles = await query.find();
-
-        return profiles.map(p => Profile.mapFromParse(p));
+        return await query.find();
     } catch (e) {
         console.log(e.message);
         throw e;

@@ -36,9 +36,7 @@ const normalizeProject = async (req) => {
     }
 };
 
-const afterSave = async (req) => {
-    const proj = req.object;
-
+const afterSave = async (proj) => {
     try {
         return await addUserReference(proj);
     } catch (e) {

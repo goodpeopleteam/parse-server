@@ -1,4 +1,3 @@
-const Project = require('../model/Project');
 const QueryCreator = require('../helpers/QueryCreator');
 const CLASS_NAME = 'Projects';
 const PAGE_SIZE = 20;

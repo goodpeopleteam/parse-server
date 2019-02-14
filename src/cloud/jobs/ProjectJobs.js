@@ -1,7 +1,7 @@
 const QueryCreator = require('../domain/helpers/QueryCreator');
-const normalizeProjectUc = require('../domain/usecases/normalize-project-uc');
 const ProjectService = require('../domain/service/ProjectService');
 const UserService = require('../domain/service/UserService');
+const NormalizeProjectUc = require("../domain/usecases/project/normalize-project-uc");
 const LOG_PREFIX = `JOB: FIX PROJECT USER REFERENCE:`;
 
 module.exports.normalizeProjects = async(req, status) => {
@@ -24,7 +24,7 @@ module.exports.normalizeProjects = async(req, status) => {
             const p = projectBatch[i];
 
             try {
-                normalizeProjectUc.normalizeProjectUc(p);
+                NormalizeProjectUc(p);
                 savePromises.push(p.save());
             } catch (e) {
                 status.error(e.code, e.message);

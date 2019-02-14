@@ -2,6 +2,7 @@ const fetch = require('node-fetch');
 const diacritics = require('../domain/helpers/Diacritics');
 const ChatService = require('../domain/service/ChatService');
 const UserService = require('../domain/service/UserService');
+const User = require("../domain/model/User");
 
 const setUserCompleteName = user => {
     const firstName = user.get('firstName') || '';
@@ -40,9 +41,7 @@ const getFacebookData = async user => {
     user.set('lastName', response.last_name);
 };
 
-const beforeSave = async (req) => {
-    let user = req.object;
-
+const beforeSave = async (user) => {
     try {
         await getFacebookData(user);
         setUserCompleteName(user);
@@ -52,12 +51,10 @@ const beforeSave = async (req) => {
     }
 };
 
-const afterSave = async (req) => {
-    let user = req.object;
-
+const afterSave = async (user) => {
     try {
         const profile = await UserService.getById(user.id);
-        await ChatService.createUser(profile);
+        await ChatService.createUser(User.mapFromParse(profile));
     } catch (e) {
         throw e;
     }

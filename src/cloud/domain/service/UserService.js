@@ -1,4 +1,3 @@
-const User = require('../model/User');
 const QueryCreator = require('../helpers/QueryCreator');
 
 const get = async (userId, page) => {
@@ -12,9 +11,7 @@ const get = async (userId, page) => {
         query.skip(page * pageSize);
         query.descending('createdAt');
 
-        const profiles = await query.find({ useMasterKey: true });
-
-        return profiles.map(u => User.mapFromParse(u));
+        return await query.find({ useMasterKey: true });
     } catch (e) {
         console.log(e.message);
         throw e;
@@ -23,10 +20,8 @@ const get = async (userId, page) => {
 
 const getById = async (id) => {
     try {
-        const user = await QueryCreator.createQuery('User')
+        return await QueryCreator.createQuery('User')
             .get(id, { useMasterKey: true });
-
-        return User.mapFromParse(user);
     } catch (e) {
         console.log(e.message);
         return null;
@@ -67,8 +62,7 @@ const search = async (term) => {
         const query = Parse.Query.or(firstNameQuery, lastNameQuery);
         query.descending('createdAt');
 
-        const results = await query.find({ useMasterKey: true });
-        return results.map(p => User.mapFromParse(p));
+        return await query.find({ useMasterKey: true });
     } catch (e) {
         console.log(e.message);
         throw e;

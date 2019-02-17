@@ -59,11 +59,11 @@ const getUsersProjects = async (user) => {
     try {
         const projectQuery = createProjectQuery();
 
-        projectQuery.include("user", { useMasterKey: true });
+        projectQuery.include("user");
         projectQuery.equalTo('user', user);
         projectQuery.descending('createdAt');
 
-        return await projectQuery.find();
+        return await projectQuery.find({ useMasterKey: true });
     } catch (e) {
         console.log(e.message);
         throw e;

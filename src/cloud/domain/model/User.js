@@ -1,11 +1,13 @@
 const mapFromParse = (x) => {
   return {
     id: x.id,
+    isOwnProfile: x.isOwnProfile,
     email: x.get('email'),
     firstName: x.get('firstName'),
     lastName: x.get('lastName'),
     about: x.get('about'),
     talents: x.get('skills') || [],
+    isFavorite: x.isFavorite,
     favorites: x.get('favorites') || [],
     profilePictureUrl: getProfilePictureUrl(x),
     location: {

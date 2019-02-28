@@ -2,7 +2,7 @@ const ProjectService = require("../../service/ProjectService");
 const Project = require("../../model/Project");
 
 module.exports.execute = async (user, projectParam) => {
-    const project = await ProjectService.add({
+    let project = await ProjectService.add({
         data: {
             title: projectParam.title,
             description: projectParam.description,
@@ -11,5 +11,6 @@ module.exports.execute = async (user, projectParam) => {
         }
     });
 
+    project = await ProjectService.getById(project.id);
     return Project.mapFromParseV1(project, user);
 };

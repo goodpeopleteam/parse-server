@@ -1,7 +1,11 @@
 const QueryCreator = require("../helpers/QueryCreator");
 
+function createQuery() {
+    return QueryCreator.createQuery("Talent");
+}
+
 const findByName = async (name) => {
-    const query = QueryCreator.createQuery("Talent");
+    const query = createQuery();
     query.fullText("name", name);
     return await query.first();
 };
@@ -17,7 +21,17 @@ const add = async (name) => {
     }
 };
 
+const search = async (term) => {
+    const query = createQuery();
+
+    query.matches('name', RegExp(term, 'gi'));
+    query.limit(10);
+
+    return await query.find();
+};
+
 module.exports = {
     findByName,
-    add
+    add,
+    search
 };

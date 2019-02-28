@@ -1,4 +1,5 @@
 const User = require('./User');
+const Talent = require("./Talent");
 
 function getProfilePictureUrl(profile, profilePicture) {
     if (profile) {
@@ -11,11 +12,11 @@ function getProfilePictureUrl(profile, profilePicture) {
     return url;
 }
 
-const mapFromParseV1 = (project) => {
+const mapFromParseV1 = (project, activeUser) => {
     const id = project.id;
     const title = project.get('title');
     const description = project.get('description');
-    const skillsNeeded = project.get('skillsNeeded') || [];
+    const requiredTalents = project.get('requiredTalents') !== undefined ? project.get('requiredTalents').map(Talent.map) : [];
 
     const profile = project.get('user');
     let profilePicture = project.get('userImageProfile');
@@ -23,13 +24,15 @@ const mapFromParseV1 = (project) => {
     const profilePictureUrl = getProfilePictureUrl(profile, profilePicture);
 
     if (!profile) {
+        const userID = project.get('userID');
         return {
             id,
+            isOwnProject: userID === activeUser.id,
             title,
             description,
-            requiredTalents: skillsNeeded,
+            requiredTalents,
             profile: {
-                id: project.get('userID'),
+                id: userID,
                 fullName: project.get('userName'),
                 location: {},
                 profilePictureUrl: profilePictureUrl
@@ -39,43 +42,14 @@ const mapFromParseV1 = (project) => {
 
     return {
         id,
+        isOwnProject: profile.id === activeUser.id,
         title,
         description,
-        requiredTalents: skillsNeeded,
+        requiredTalents,
         profile: User.mapFromParse(profile)
     };
 };
 
-const mapFromParse = (project, profile) => {
-    const id = project.id;
-    const title = project.get('title');
-    const description = project.get('description');
-    const skillsNeeded = project.get('skillsNeeded') || [];
-
-    if (!profile) {
-        return {
-            id,
-            title,
-            description,
-            requiredTalents: skillsNeeded
-        };
-    }
-
-    return {
-        id,
-        title,
-        description,
-        requiredTalents: skillsNeeded,
-        profile: {
-            id: profile.id,
-            firstName: profile.get('firstName'),
-            lastName: profile.get('lastName'),
-            location: profile.get('location')
-        }
-    };
-};
-
 module.exports = {
-    mapFromParseV1,
-    mapFromParse
+    mapFromParseV1
 };

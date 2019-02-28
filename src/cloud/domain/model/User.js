@@ -1,3 +1,5 @@
+const Talent = require("./Talent");
+
 const mapFromParse = (x) => {
   return {
     id: x.id,
@@ -6,7 +8,7 @@ const mapFromParse = (x) => {
     firstName: x.get('firstName'),
     lastName: x.get('lastName'),
     about: x.get('about'),
-    talents: x.get('skills') || [],
+    talents: x.get('talents') !== undefined ? x.get('talents').map(Talent.map) : [],
     isFavorite: x.isFavorite,
     favorites: x.get('favorites') || [],
     profilePictureUrl: getProfilePictureUrl(x),

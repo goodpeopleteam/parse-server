@@ -11,5 +11,5 @@ module.exports.execute = async (user, projectParam) => {
         }
     });
 
-    return Project.mapFromParseV1(project);
+    return Project.mapFromParseV1(project, user);
 };

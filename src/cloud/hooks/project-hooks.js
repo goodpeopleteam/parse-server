@@ -5,6 +5,9 @@ const addUserReference = async proj => {
         return;
 
     const userReference = await UserService.getById(proj.get('userID'));
+    if (!userReference) {
+        return;
+    }
 
     proj.set('user', userReference);
     return await proj.save();

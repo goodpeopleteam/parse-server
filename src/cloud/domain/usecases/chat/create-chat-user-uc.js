@@ -1,6 +1,8 @@
 const ChatService = require("../../service/ChatService");
-const Profile = require("../../model/Profile");
+const UserService = require("../../service/UserService");
+const User = require("../../model/User");
 
-module.exports.execute = async (savedProfile) => {
-    await ChatService.createUser(Profile.mapFromParse(savedProfile));
+module.exports.execute = async (user) => {
+    const profile = await UserService.getById(user.id);
+    await ChatService.createUser(User.mapFromParse(profile));
 };

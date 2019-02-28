@@ -4,7 +4,7 @@ const GetMyFavoritesUc = require("../../domain/usecases/favorite/get-my-favorite
 
 Parse.Cloud.define('Favorite_toggle', async (req) => {
     try {
-        await ToggleFavoriteUc.execute(req.user, req.params.favoriteId);
+        ToggleFavoriteUc.execute(req.user, req.params.favoriteId);
     } catch (e) {
         console.log(e);
     }

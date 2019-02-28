@@ -13,6 +13,10 @@ admin.initializeApp({
 
 const db = admin.firestore();
 
+function isValid(p) {
+    return p.email && p.firstName && p.lastName;
+}
+
 const addChatRoomToUser = async (userProfile, recipientProfile, chatRoomRef) => {
     const chatRoomsRef = db
         .collection('users')
@@ -72,6 +76,10 @@ const getChatRoom = async (userEmail, recipientEmail) => {
 };
 
 const createUser = async (p) => {
+    if (!isValid(p)) {
+        return;
+    }
+
     const userRef = db
         .collection('users')
         .doc(p.email);

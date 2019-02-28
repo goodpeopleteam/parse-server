@@ -40,7 +40,7 @@ Parse.Cloud.define('Project_myProjects', async (req) => {
 
 Parse.Cloud.define('Project_search', async (req) => {
     try {
-        return await SearchProjectsUc.execute(req.params.term);
+        return await SearchProjectsUc.execute(req.user, req.params.term);
     } catch (e) {
         console.log(e);
     }

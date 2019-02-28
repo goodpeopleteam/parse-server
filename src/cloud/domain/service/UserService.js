@@ -1,10 +1,16 @@
 const QueryCreator = require('../helpers/QueryCreator');
 
+function createQuery() {
+    const query = QueryCreator.createQuery('User');
+    query.include('talents');
+    return query;
+}
+
 const get = async (userId, page) => {
     const pageSize = 20;
 
     try {
-        const query = QueryCreator.createQuery('User');
+        const query = createQuery();
 
         query.notEqualTo("objectId", userId);
         query.limit(pageSize);
@@ -20,8 +26,7 @@ const get = async (userId, page) => {
 
 const getById = async (id) => {
     try {
-        return await QueryCreator.createQuery('User')
-            .get(id, { useMasterKey: true });
+        return await createQuery().get(id, { useMasterKey: true });
     } catch (e) {
         console.log(e.message);
         return null;
@@ -30,7 +35,7 @@ const getById = async (id) => {
 
 const find = async (skip) => {
     try {
-        const userQuery = QueryCreator.createQuery('User');
+        const userQuery = createQuery();
         userQuery.skip(skip);
 
         return await userQuery
@@ -43,8 +48,7 @@ const find = async (skip) => {
 
 const count = async () => {
     try {
-        return await QueryCreator.createQuery('User')
-            .count();
+        return await createQuery().count();
     } catch (e) {
         console.log(e.message);
         throw e;
@@ -53,11 +57,11 @@ const count = async () => {
 
 const search = async (term) => {
     try {
-        const firstNameQuery = QueryCreator.createQuery('User');
-        firstNameQuery.startsWith('firstName', term);
+        const firstNameQuery = createQuery();
+        firstNameQuery.fullText('firstName', term);
 
-        const lastNameQuery = QueryCreator.createQuery('User');
-        lastNameQuery.startsWith('lastName', term);
+        const lastNameQuery = createQuery();
+        lastNameQuery.fullText('lastName', term);
 
         const query = Parse.Query.or(firstNameQuery, lastNameQuery);
         query.descending('createdAt');

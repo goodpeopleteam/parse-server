@@ -2,7 +2,9 @@ const QueryCreator = require('../helpers/QueryCreator');
 const CLASS_NAME = 'Profile';
 
 const createProfileQuery = () => {
-    return QueryCreator.createQuery(CLASS_NAME);
+    const query = QueryCreator.createQuery(CLASS_NAME);
+    query.include('Talent');
+    return query;
 };
 
 const add = async (params) => {

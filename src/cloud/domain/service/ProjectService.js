@@ -45,8 +45,12 @@ const get = async (userId, page) => {
         user.id = userId;
 
         projectQuery.notEqualTo("user", user);
+
         projectQuery.limit(10);
         projectQuery.skip(PAGE_SIZE * page);
+
+        projectQuery.descending('priority');
+        projectQuery.addDescending('createdAt');
 
         return await projectQuery.find({ useMasterKey: true });
     } catch (e) {

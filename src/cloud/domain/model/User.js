@@ -12,6 +12,7 @@ const mapFromParse = (x) => {
     isFavorite: x.isFavorite,
     favorites: x.get('favorites') || [],
     profilePictureUrl: getProfilePictureUrl(x),
+    views: x.get('views'),
     location: {
       position: x.get('userPosition'),
       location: x.get('location'),

@@ -4,9 +4,9 @@ const PAGE_SIZE = 20;
 
 const createProjectQuery = () => {
     const query = QueryCreator.createQuery(CLASS_NAME);
-    query.include('user', { useMasterKey: true });
-    query.include("requiredTalents");
+    query.include('user');
     query.include("user.talents");
+    query.include("requiredTalents");
     return query;
 };
 
@@ -30,8 +30,7 @@ const add = async (params) => {
 
 const getById = async (id) => {
     try {
-        const query = createProjectQuery();
-        return await query.get(id, { useMasterKey: true });
+        return await createProjectQuery().get(id, { useMasterKey: true });
     } catch (e) {
         console.log(e.message);
         throw e;

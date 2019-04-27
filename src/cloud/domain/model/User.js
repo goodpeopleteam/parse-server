@@ -1,12 +1,17 @@
 const Talent = require("./Talent");
 
+const emailKey = 'email';
+const firstNameKey = 'firstName';
+const lastNameKey = 'lastName';
+
 const mapFromParse = (x) => {
   return {
     id: x.id,
     isOwnProfile: x.isOwnProfile,
-    email: x.get('email'),
-    firstName: x.get('firstName'),
-    lastName: x.get('lastName'),
+    isComplete: !!x.get(emailKey) && !!x.get(firstNameKey) && !!x.get(lastNameKey),
+    email: x.get(emailKey),
+    firstName: x.get(firstNameKey),
+    lastName: x.get(lastNameKey),
     about: x.get('about'),
     talents: x.get('talents') !== undefined ? x.get('talents').map(Talent.map) : [],
     isFavorite: x.isFavorite,
@@ -42,6 +47,9 @@ const getFacebookPictureUrl = (facebookId) => {
 };
 
 module.exports = {
+  EmailKey: emailKey,
+  FirstNameKey: firstNameKey,
+  LastNameKey: lastNameKey,
   mapFromParse,
   getProfilePictureUrl
 };

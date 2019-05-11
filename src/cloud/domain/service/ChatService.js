@@ -31,25 +31,6 @@ const addChatRoomToUser = async (userProfile, recipientProfile, chatRoomRef) => 
     });
 };
 
-const getUserChatRooms = async (userId) => {
-    const profile = await ProfileService.getByUserId(userId);
-
-    const userDoc = await db
-        .collection('users')
-        .doc(profile.email)
-        .get();
-
-    const data = await userDoc.data();
-    const chatRooms = data.chatRooms;
-
-    return chatRooms.map(x => {
-        return {
-            id: x.ref.id,
-            title: x.title
-        }
-    })
-};
-
 const createChatRoom = async (senderEmail, recipientEmail) => {
     const chatRooms = db
         .collection('chatRooms');
@@ -90,6 +71,24 @@ const createUser = async (p) => {
     return userRef;
 };
 
+const addMessageToChatRoom = async (chatRoomPath, senderEmail, message) => {
+    const sentAt = Date.parse(message.sent_at);
+    const chatRoom = db.doc(chatRoomPath);
+
+    const messagesCollection = chatRoom
+        .collection('messages');
+
+    const messageReference = await messagesCollection
+        .doc(sentAt.toString());
+
+    return await messageReference.set({
+        'idFrom': senderEmail,
+        'timestamp': sentAt,
+        'content': message.parts[0].body,
+        'type': 0
+    }, { merge: true });
+};
+
 const mapToFirebaseUser = p => {
     return {
         email: p.email,
@@ -103,6 +102,6 @@ module.exports = {
     createUser,
     createChatRoom,
     addChatRoomToUser,
-    getUserChatRooms,
+    addMessageToChatRoom,
     getChatRoom
 };

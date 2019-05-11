@@ -60,13 +60,13 @@ const search = async (term) => {
         const firstNameQuery = createQuery();
         firstNameQuery.fullText('firstName', term);
 
-        const lastNameQuery = createQuery();
-        lastNameQuery.fullText('lastName', term);
+        // const lastNameQuery = createQuery();
+        // lastNameQuery.fullText('lastName', term);
 
-        const query = Parse.Query.or(firstNameQuery, lastNameQuery);
-        query.descending('createdAt');
+        // const query = Parse.Query.or(firstNameQuery);
+        firstNameQuery.descending('createdAt');
 
-        return await query.find({ useMasterKey: true });
+        return await firstNameQuery.find({ useMasterKey: true });
     } catch (e) {
         console.log(e.message);
         throw e;

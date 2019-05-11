@@ -1,6 +1,16 @@
 const User = require('./User');
 const Talent = require("./Talent");
 
+function getRequiredTalents(project) {
+    if(project.get('requiredTalents'))
+        return project.get('requiredTalents').map(Talent.map);
+
+    if(project.get('skillsNeeded'))
+        return project.get('skillsNeeded').map(s => { return { name: s }});
+
+    return [];
+}
+
 function getProfilePictureUrl(profile, profilePicture) {
     if (profile) {
         return User.getProfilePictureUrl(profile);
@@ -8,8 +18,8 @@ function getProfilePictureUrl(profile, profilePicture) {
 
     if (!profilePicture)
         return "";
-    const url = profilePicture.url();
-    return url;
+
+    return profilePicture.url();
 }
 
 const mapFromParseV1 = (project, activeUser) => {
@@ -17,7 +27,7 @@ const mapFromParseV1 = (project, activeUser) => {
     const views = project.get('views');
     const title = project.get('title');
     const description = project.get('description');
-    const requiredTalents = project.get('requiredTalents') !== undefined ? project.get('requiredTalents').map(Talent.map) : [];
+    const requiredTalents = getRequiredTalents(project);
 
     const profile = project.get('user');
 

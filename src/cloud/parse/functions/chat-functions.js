@@ -3,7 +3,7 @@ const GenerateLayerTokenUc = require("../../domain/usecases/layer/generate-layer
 
 Parse.Cloud.define('Chat_startChat', async (req) => {
     try {
-        await StartConversationUc.execute(req.user, req.params.recipientId);
+        return await StartConversationUc.execute(req.user, req.params.recipientId);
     } catch (e) {
         console.log(e);
     }

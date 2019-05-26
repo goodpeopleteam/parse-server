@@ -45,9 +45,9 @@ Parse.Cloud.define('Profile_get', async (req) => {
     }
 });
 
-Parse.Cloud.define('Profile_getById', async (req) => {
+Parse.Cloud.define('Profile_getById', (req) => {
     try {
-        return await GetProfileUc.execute(req.user, req.params.id);
+        return GetProfileUc.execute(req.user, req.params.id);
     } catch (e) {
         console.log(e);
     }

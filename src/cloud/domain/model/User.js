@@ -20,6 +20,7 @@ function getUserTalents(x) {
 const mapFromParse = (x) => {
     return {
         id: x.id,
+        firebaseDeviceToken: x.get('firebaseDeviceToken') || '',
         isOwnProfile: x.isOwnProfile,
         isComplete: !!x.get(emailKey) && !!x.get(firstNameKey) && !!x.get(lastNameKey),
         email: x.get(emailKey),

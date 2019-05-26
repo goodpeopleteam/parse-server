@@ -3,6 +3,7 @@ const QueryCreator = require('../helpers/QueryCreator');
 function createQuery() {
     const query = QueryCreator.createQuery('User');
     query.include('talents');
+    query.select('location', 'firstName', 'lastName', 'country', 'city', 'email', 'skills', 'talent', 'about', 'authData', 'firebaseDeviceToken');
     return query;
 }
 

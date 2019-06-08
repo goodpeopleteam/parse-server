@@ -2,7 +2,7 @@ const UserService = require("../../service/UserService");
 const ChatService = require("../../service/ChatService");
 const User = require("../../model/User");
 
-module.exports.execute = async (user, recipientId) => {
+module.exports.execute = async (conversationType, user, recipientId) => {
     const result = await Promise.all([
         UserService.getById(user.id),
         UserService.getById(recipientId)
@@ -23,23 +23,23 @@ module.exports.execute = async (user, recipientId) => {
         ChatService.createUser(recipientProfile)
     ]);
 
-    const existingChatRoom = await ChatService.getChatRoom(senderProfile.email, recipientProfile.email);
+    const existingChatRoom = await ChatService.getChatRoom(conversationType, senderProfile.email, recipientProfile.email);
     if (existingChatRoom.exists) {
+        const room = existingChatRoom.data();
+
         return {
-            roomPath: existingChatRoom.data()["ref"]["path"],
-            roomAvatar: existingChatRoom.data()["roomAvatar"]
+            roomPath: room["roomRef"]["path"]
         };
     } else {
-        const chatRoomRef = await ChatService.createChatRoom(senderProfile.email, recipientProfile.email);
+        const chatRoom = await ChatService.createChatRoom(conversationType, senderProfile.email, recipientProfile.email);
 
         await Promise.all([
-            ChatService.addChatRoomToUser(senderProfile, recipientProfile, chatRoomRef),
-            ChatService.addChatRoomToUser(recipientProfile, senderProfile, chatRoomRef)
+            ChatService.addChatRoomToUser(conversationType, senderProfile, recipientProfile, chatRoom),
+            ChatService.addChatRoomToUser(conversationType, recipientProfile, senderProfile, chatRoom)
         ]);
 
         return {
-            roomPath: chatRoomRef.path,
-            roomAvatar: recipientProfile.profilePictureUrl
+            roomPath: chatRoom.path
         };
     }
 };

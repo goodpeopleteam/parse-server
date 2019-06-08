@@ -8,7 +8,7 @@ admin.initializeApp({
         clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
         privateKey: process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n'),
     }),
-    databaseURL: "https://goodpeople-dev.firebaseio.com"
+    databaseURL: process.env.FIREBASE_DATABASE_URL
 });
 
 const db = admin.firestore();
@@ -17,40 +17,50 @@ function isValid(p) {
     return p.email && p.firstName && p.lastName;
 }
 
-const addChatRoomToUser = async (userProfile, recipientProfile, chatRoomRef) => {
+function getProfileRef(email) {
+    return db.collection('profiles').doc(email);
+}
+
+const addChatRoomToUser = async (conversationType, userProfile, recipientProfile, chatRoomRef) => {
     const chatRoomsRef = db
-        .collection('users')
+        .collection('profiles')
         .doc(userProfile.email)
-        .collection('chatRooms')
+        .collection(conversationType)
         .doc(recipientProfile.email);
 
     await chatRoomsRef.set({
-        title: `${recipientProfile.firstName} ${recipientProfile.lastName}`,
-        roomAvatar: recipientProfile.profilePictureUrl,
-        ref: chatRoomRef
+        roomRef: chatRoomRef,
+        recipientRef: getProfileRef(recipientProfile.email)
     });
 };
 
-const createChatRoom = async (senderEmail, recipientEmail) => {
+const createChatRoom = async (conversationType, senderEmail, recipientEmail) => {
     const chatRooms = db
-        .collection('chatRooms');
+        .collection('conversations')
+        .doc(conversationType)
+        .collection('rooms');
 
-    const senderRef = db.collection('users').doc(senderEmail);
-    const recipientRef = db.collection('users').doc(recipientEmail);
+    const senderRef = getProfileRef(senderEmail);
+    const recipientRef = getProfileRef(recipientEmail);
 
     let participants = [senderRef, recipientRef];
 
-    return await chatRooms.add({
+    const room = await chatRooms.add({
         createdAt: FieldValue.serverTimestamp(),
         participants: participants
     });
+
+    room.collection('participants').doc(senderEmail).set({ ref: senderRef });
+    room.collection('participants').doc(recipientEmail).set({ ref: recipientRef });
+
+    return room;
 };
 
-const getChatRoom = async (userEmail, recipientEmail) => {
+const getChatRoom = async (conversationType, userEmail, recipientEmail) => {
     const chatRoom = db
-        .collection('users')
+        .collection('profiles')
         .doc(userEmail)
-        .collection('chatRooms')
+        .collection(conversationType)
         .doc(recipientEmail);
 
     return await chatRoom.get();
@@ -62,7 +72,7 @@ const createUser = async (p) => {
     }
 
     const userRef = db
-        .collection('users')
+        .collection('profiles')
         .doc(p.email);
 
     await userRef

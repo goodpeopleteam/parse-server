@@ -3,7 +3,7 @@ const QueryCreator = require('../helpers/QueryCreator');
 function createQuery() {
     const query = QueryCreator.createQuery('User');
     query.include('talents');
-    query.select('location', 'firstName', 'lastName', 'country', 'city', 'email', 'skills', 'talent', 'about', 'authData', 'firebaseDeviceToken');
+    // query.select('location', 'firstName', 'lastName', 'country', 'city', 'email', 'skills', 'talent', 'about', 'authData', 'firebaseDeviceToken');
     return query;
 }
 
@@ -27,7 +27,8 @@ const get = async (userId, page) => {
 
 const getById = async (id) => {
     try {
-        return await createQuery().get(id, { useMasterKey: true });
+        return await createQuery()
+            .get(id, { useMasterKey: true });
     } catch (e) {
         console.log(e.message);
         return null;

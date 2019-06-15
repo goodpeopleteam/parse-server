@@ -1,6 +1,6 @@
 const admin = require('firebase-admin');
 const FieldValue = require('firebase-admin').firestore.FieldValue;
-const ProfileService = require('../service/ProfileService');
+const ProfileService = require('../service/ProfileService'); 
 
 admin.initializeApp({
     credential: admin.credential.cert({

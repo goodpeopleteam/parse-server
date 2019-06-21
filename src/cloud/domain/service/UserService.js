@@ -57,28 +57,10 @@ const count = async () => {
     }
 };
 
-const search = async (term) => {
-    try {
-        const firstNameQuery = createQuery();
-        firstNameQuery.fullText('firstName', term);
-
-        // const lastNameQuery = createQuery();
-        // lastNameQuery.fullText('lastName', term);
-
-        // const query = Parse.Query.or(firstNameQuery);
-        firstNameQuery.descending('createdAt');
-
-        return await firstNameQuery.find({ useMasterKey: true });
-    } catch (e) {
-        console.log(e.message);
-        throw e;
-    }
-};
-
 module.exports = {
     get,
     getById,
     find,
     count,
-    search
+    createQuery
 };

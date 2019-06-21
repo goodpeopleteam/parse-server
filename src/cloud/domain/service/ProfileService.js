@@ -71,24 +71,10 @@ const fetch = async (page) => {
     }
 };
 
-const search = async (term) => {
-    try {
-        const query = createProfileQuery();
-
-        query.fullText('firstName', term);
-        query.fullText('lastName', term);
-
-        return await query.find();
-    } catch (e) {
-        console.log(e.message);
-        throw e;
-    }
-};
 
 module.exports = {
     add,
     fetch,
     get,
-    getByUserId,
-    search
+    getByUserId
 };

@@ -2,7 +2,7 @@ const QueryCreator = require('../helpers/QueryCreator');
 const CLASS_NAME = 'Projects';
 const PAGE_SIZE = 20;
 
-const createProjectQuery = () => {
+const createQuery = () => {
     const query = QueryCreator.createQuery(CLASS_NAME);
     query.include('user');
     query.include("user.talents");
@@ -30,7 +30,7 @@ const add = async (params) => {
 
 const getById = async (id) => {
     try {
-        return await createProjectQuery().get(id, { useMasterKey: true });
+        return await createQuery().get(id, { useMasterKey: true });
     } catch (e) {
         console.log(e.message);
         throw e;
@@ -39,7 +39,7 @@ const getById = async (id) => {
 
 const get = async (userId, page) => {
     try {
-        const projectQuery = createProjectQuery();
+        const projectQuery = createQuery();
 
         const user = new Parse.User();
         user.id = userId;
@@ -61,7 +61,7 @@ const get = async (userId, page) => {
 
 const getUsersProjects = async (user) => {
     try {
-        const projectQuery = createProjectQuery();
+        const projectQuery = createQuery();
 
         projectQuery.equalTo('user', user);
         projectQuery.descending('createdAt');
@@ -73,22 +73,8 @@ const getUsersProjects = async (user) => {
     }
 };
 
-const search = async (term) => {
-    try {
-        const query = createProjectQuery();
-
-        query.fullText('title', term);
-        query.fullText('description', term);
-
-        return await query.find({ useMasterKey: true });
-    } catch (e) {
-        console.log(e.message);
-        throw e;
-    }
-};
-
 const count = async () => {
-    return await createProjectQuery().count();
+    return await createQuery().count();
 };
 
 module.exports = {
@@ -96,6 +82,6 @@ module.exports = {
     getById,
     get,
     getUsersProjects,
-    search,
-    count
+    count,
+    createQuery
 };

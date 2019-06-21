@@ -41,11 +41,6 @@ const get = async (userId, page) => {
     try {
         const projectQuery = createQuery();
 
-        const user = new Parse.User();
-        user.id = userId;
-
-        projectQuery.notEqualTo("user", user);
-
         projectQuery.limit(10);
         projectQuery.skip(PAGE_SIZE * page);
 

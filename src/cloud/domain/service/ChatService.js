@@ -1,6 +1,6 @@
 const admin = require('firebase-admin');
 const FieldValue = require('firebase-admin').firestore.FieldValue;
-const ProfileService = require('../service/ProfileService'); 
+const ProfileService = require('../service/ProfileService');
 
 admin.initializeApp({
     credential: admin.credential.cert({
@@ -28,7 +28,10 @@ const addChatRoomToUser = async (conversationType, userProfile, recipientProfile
         .collection(conversationType)
         .doc(recipientProfile.email);
 
+    const serverTimestamp = FieldValue.serverTimestamp();
     await chatRoomsRef.set({
+        createdAt: serverTimestamp,
+        modifiedAt: serverTimestamp,
         roomRef: chatRoomRef,
         recipientRef: getProfileRef(recipientProfile.email)
     });

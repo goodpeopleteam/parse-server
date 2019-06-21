@@ -23,7 +23,7 @@ module.exports.execute = async (term) => {
     const compoundQuery = Parse.Query.or(...queries);
     compoundQuery.include('talents');
 
-    const users = await compoundQuery.find();
+    const users = await compoundQuery.find({ useMasterKey: true });
 
     return users.map(User.mapFromParse);
 };

@@ -1,13 +1,9 @@
 const admin = require('firebase-admin');
 const FieldValue = require('firebase-admin').firestore.FieldValue;
-const ProfileService = require('../service/ProfileService');
 
+const serviceAccount = require("../../../../firebase-credentials.json");
 admin.initializeApp({
-    credential: admin.credential.cert({
-        projectId: process.env.FIREBASE_PROJECT_ID,
-        clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
-        privateKey: process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n'),
-    }),
+    credential: admin.credential.cert(serviceAccount),
     databaseURL: process.env.FIREBASE_DATABASE_URL
 });
 

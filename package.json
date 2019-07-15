@@ -1,6 +1,6 @@
 {
   "name": "goodpeople-server",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "server",
   "main": "index.js",
   "scripts": {
@@ -9,19 +9,22 @@
     "start": "node index.js"
   },
   "dependencies": {
+    "@firebase/app-types": "0.4.0",
+    "@google-cloud/firestore": "2.2.4",
     "axios": "^0.19.0",
     "express": "^4.17.1",
-    "firebase-admin": "^7.0.0",
-    "firebase-functions": "^2.2.0",
+    "firebase-admin": "8.2.0",
+    "firebase-functions": "3.1.0",
+    "googleapis": "^41.0.0",
     "jsrsasign": "8.0.12",
     "lodash": "4.17.11",
-    "node-fetch": "2.3.0",
-    "parse-server": "3.3.0",
+    "node-fetch": "2.6.0",
+    "parse-server": "3.5.0",
     "simple-parse-smtp-adapter": "1.0.9"
   },
   "devDependencies": {
-    "jest": "24.0.0",
-    "nodemon": "1.18.9"
+    "jest": "24.8.0",
+    "nodemon": "1.19.1"
   },
   "author": "",
   "license": "ISC"

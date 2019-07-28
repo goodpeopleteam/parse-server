@@ -18,17 +18,20 @@ module.exports.execute = async (conversationType, user, recipientId) => {
     const senderProfile = User.mapFromParse(result[0]);
     const recipientProfile = User.mapFromParse(result[1]);
 
-    await Promise.all([
+    const userReferences = await Promise.all([
         ChatService.createUser(senderProfile),
         ChatService.createUser(recipientProfile)
     ]);
+
+    const recipientRef = userReferences[1];
 
     const existingChatRoom = await ChatService.getChatRoom(conversationType, senderProfile.email, recipientProfile.email);
     if (existingChatRoom.exists) {
         const room = existingChatRoom.data();
 
         return {
-            roomPath: room["roomRef"]["path"]
+            roomRefPath: room["roomRef"]["path"],
+            recipientRefPath: recipientRef["path"]
         };
     } else {
         const chatRoom = await ChatService.createChatRoom(conversationType, senderProfile.email, recipientProfile.email);
@@ -39,7 +42,8 @@ module.exports.execute = async (conversationType, user, recipientId) => {
         ]);
 
         return {
-            roomPath: chatRoom.path
+            roomRefPath: chatRoom.path,
+            recipientRefPath: recipientRef["path"]
         };
     }
 };

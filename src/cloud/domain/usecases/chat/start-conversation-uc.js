@@ -2,9 +2,9 @@ const UserService = require("../../service/UserService");
 const ChatService = require("../../service/ChatService");
 const User = require("../../model/User");
 
-module.exports.execute = async (conversationType, user, recipientId) => {
+module.exports.execute = async (loggedUser, conversationType, recipientId) => {
     const result = await Promise.all([
-        UserService.getById(user.id),
+        UserService.getById(loggedUser.id),
         UserService.getById(recipientId)
     ]);
 
@@ -15,8 +15,8 @@ module.exports.execute = async (conversationType, user, recipientId) => {
         return null;
     }
 
-    const senderProfile = User.mapFromParse(result[0]);
-    const recipientProfile = User.mapFromParse(result[1]);
+    const senderProfile = User.mapFromParse(loggedUser, result[0]);
+    const recipientProfile = User.mapFromParse(loggedUser, result[1]);
 
     const userReferences = await Promise.all([
         ChatService.createUser(senderProfile),

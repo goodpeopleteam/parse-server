@@ -2,7 +2,7 @@ const ProjectService = require("../../service/ProjectService");
 const Project = require("../../model/Project");
 const TalentService = require("../../service/TalentService");
 
-module.exports.execute = async (user, term) => {
+module.exports.execute = async (loggedUser, term) => {
     const queries = [];
 
     const talents = await TalentService.search(term);
@@ -30,5 +30,5 @@ module.exports.execute = async (user, term) => {
     const projects = await compoundQuery.find({ useMasterKey: true });
 
 
-    return projects.map(p => Project.mapFromParseV1(p, user));
+    return projects.map(p => Project.mapFromParseV1(p, loggedUser));
 };

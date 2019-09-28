@@ -1,8 +1,8 @@
 const UserService = require("../../service/UserService");
 const User = require("../../model/User");
 
-module.exports.execute = async (user) => {
-    const favoriteEntries = user.get('favorites') || [];
+module.exports.execute = async (loggedUser) => {
+    const favoriteEntries = loggedUser.get('favorites') || [];
     if (favoriteEntries.length === 0) {
         return [];
     }
@@ -13,5 +13,5 @@ module.exports.execute = async (user) => {
     }
 
     const parseUsers = await Promise.all(userQueries);
-    return parseUsers.map(User.mapFromParse);
+    return parseUsers.map(u => User.mapFromParse(loggedUser, u));
 };

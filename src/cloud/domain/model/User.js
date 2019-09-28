@@ -1,3 +1,4 @@
+const _ = require("lodash");
 const Talent = require("./Talent");
 
 const emailKey = 'email';
@@ -17,26 +18,28 @@ function getUserTalents(x) {
     return [];
 }
 
-const mapFromParse = (x) => {
+const mapFromParse = (loggedUser, parseUser) => {
+    const isFavorite = _.find(loggedUser.get('favorites'), f => f.id === parseUser.id) !== undefined;
+
     return {
-        id: x.id,
-        firebaseDeviceToken: x.get('firebaseDeviceToken') || '',
-        isOwnProfile: x.isOwnProfile,
-        isComplete: !!x.get(emailKey) && !!x.get(firstNameKey) && !!x.get(lastNameKey),
-        email: x.get(emailKey),
-        firstName: x.get(firstNameKey),
-        lastName: x.get(lastNameKey),
-        about: x.get('about'),
-        talents: getUserTalents(x),
-        isFavorite: x.isFavorite,
-        favorites: x.get('favorites') || [],
-        profilePictureUrl: getProfilePictureUrl(x),
-        views: x.get('views'),
+        id: parseUser.id,
+        firebaseDeviceToken: parseUser.get('firebaseDeviceToken') || '',
+        isOwnProfile: loggedUser.id === parseUser.id,
+        isComplete: !!parseUser.get(emailKey) && !!parseUser.get(firstNameKey) && !!parseUser.get(lastNameKey),
+        email: parseUser.get(emailKey),
+        firstName: parseUser.get(firstNameKey),
+        lastName: parseUser.get(lastNameKey),
+        about: parseUser.get('about'),
+        talents: getUserTalents(parseUser),
+        isFavorite: isFavorite,
+        favorites: parseUser.get('favorites') || [],
+        profilePictureUrl: getProfilePictureUrl(parseUser),
+        views: parseUser.get('views'),
         location: {
-            position: x.get('userPosition'),
-            location: x.get('location'),
-            country: x.get('country'),
-            city: x.get('city')
+            position: parseUser.get('userPosition'),
+            location: parseUser.get('location'),
+            country: parseUser.get('country'),
+            city: parseUser.get('city')
         }
     };
 };

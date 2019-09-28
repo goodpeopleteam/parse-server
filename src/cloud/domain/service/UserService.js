@@ -35,6 +35,21 @@ const getById = async (id) => {
     }
 };
 
+const getByEmail = async (email) => {
+    try {
+        const query = createQuery();
+        query.equalTo("email", email);
+
+        const result = await query
+            .find({ useMasterKey: true });
+
+        return !!result ? result[0] : null;
+    } catch (e) {
+        console.log(e.message);
+        return null;
+    }
+};
+
 const find = async (skip) => {
     try {
         const userQuery = createQuery();
@@ -60,6 +75,7 @@ const count = async () => {
 module.exports = {
     get,
     getById,
+    getByEmail,
     find,
     count,
     createQuery

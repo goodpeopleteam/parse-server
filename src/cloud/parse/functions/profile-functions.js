@@ -4,6 +4,7 @@ const GetProfilesUc = require("../../domain/usecases/profile/get-profiles-uc");
 const GetProfileUc = require("../../domain/usecases/profile/get-profile-uc");
 const SearchProfilesUc = require("../../domain/usecases/profile/search-profiles-uc");
 const UpdateProfileBasicInfoUc = require("../../domain/usecases/profile/update-profile-basic-info-uc");
+const IncrementViewsCountUc = require("../../domain/usecases/profile/increment-views-count-uc");
 
 Parse.Cloud.define('Profile_create', async (req) => {
     try {
@@ -47,7 +48,15 @@ Parse.Cloud.define('Profile_get', async (req) => {
 
 Parse.Cloud.define('Profile_getById', (req) => {
     try {
-        return GetProfileUc.execute(req.user, req.params.id);
+        return GetProfileUc.getById(req.user, req.params.id);
+    } catch (e) {
+        console.log(e);
+    }
+});
+
+Parse.Cloud.define('Profile_getByEmail', (req) => {
+    try {
+        return GetProfileUc.getByEmail(req.user, req.params.email);
     } catch (e) {
         console.log(e);
     }
@@ -55,7 +64,15 @@ Parse.Cloud.define('Profile_getById', (req) => {
 
 Parse.Cloud.define('Profile_search', async (req) => {
     try {
-        return await SearchProfilesUc.execute(req.params.term);
+        return await SearchProfilesUc.execute(req.user, req.params.term);
+    } catch (e) {
+        console.log(e);
+    }
+});
+
+Parse.Cloud.define('Profile_increaseViewsCount', async (req) => {
+    try {
+        return await IncrementViewsCountUc.execute(req.user, req.params.profileId);
     } catch (e) {
         console.log(e);
     }

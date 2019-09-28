@@ -1,22 +1,34 @@
 const UserService = require("../../service/UserService");
-const _ = require("lodash");
 const User = require("../../model/User");
 
-module.exports.execute = async (user, profileId) => {
-    const profile = await UserService.getById(profileId);
-
-    if (user.id !== profileId) {
-        profile.increment('views');
-        profile.save(null, { useMasterKey: true });
-    }
-    
-    profile.isOwnProfile = user.id === profileId;
+function processProfile(loggedUser, profile) {
+    // profile.isOwnProfile = profile.id === loggedUser.id;
 
     if (!profile.isOwnProfile) {
-        profile.isFavorite = _.find(user.get('favorites'), f => f.id === profileId) !== undefined;
-    } else {
-        profile.isFavorite = false;
+        profile.increment('views');
+        profile.save(null, { useMasterKey: true });
+        // profile.isFavorite = _.find(loggedUser.get('favorites'), f => f.id === profile.id) !== undefined;
+    }
+}
+
+const getById = async (loggedUser, profileId) => {
+    const profile = await UserService.getById(profileId);
+    processProfile(loggedUser, profile);
+
+    return User.mapFromParse(loggedUser, profile);
+};
+
+const getByEmail = async (loggedUser, profileEmail) => {
+    const profile = await UserService.getByEmail(profileEmail);
+    if(!profile) {
+        return null;
     }
 
-    return User.mapFromParse(profile);
+    processProfile(loggedUser, profile);
+    return User.mapFromParse(loggedUser, profile);
+};
+
+module.exports = {
+    getById,
+    getByEmail
 };

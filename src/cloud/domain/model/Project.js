@@ -22,7 +22,7 @@ function getProfilePictureUrl(profile, profilePicture) {
     return profilePicture.url();
 }
 
-const mapFromParseV1 = (project, activeUser) => {
+const mapFromParseV1 = (project, loggedUser) => {
     const id = project.id;
     const views = project.get('views');
     const title = project.get('title');
@@ -39,7 +39,7 @@ const mapFromParseV1 = (project, activeUser) => {
 
     if (!profile) {
         const userID = project.get('userID');
-        isOwnProject = userID === activeUser.id;
+        isOwnProject = userID === loggedUser.id;
 
         profileMapping = {
             id: userID,
@@ -48,8 +48,8 @@ const mapFromParseV1 = (project, activeUser) => {
             profilePictureUrl: profilePictureUrl
         };
     } else {
-        isOwnProject = profile.id === activeUser.id;
-        profileMapping = User.mapFromParse(profile);
+        isOwnProject = profile.id === loggedUser.id;
+        profileMapping = User.mapFromParse(loggedUser, profile);
     }
 
     return {

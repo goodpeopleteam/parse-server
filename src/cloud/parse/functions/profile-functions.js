@@ -70,9 +70,9 @@ Parse.Cloud.define('Profile_search', async (req) => {
     }
 });
 
-Parse.Cloud.define('Profile_increaseViewsCount', async (req) => {
+Parse.Cloud.define('Profile_increaseViewsCount', (req) => {
     try {
-        return await IncrementViewsCountUc.execute(req.user, req.params.profileId);
+        return IncrementViewsCountUc.execute(req.user, req.params.profileId);
     } catch (e) {
         console.log(e);
     }

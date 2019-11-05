@@ -1,3 +1,6 @@
+const User = require("../../model/User");
+const UserService = require("../../service/UserService");
+
 module.exports.execute = async (user, fieldToUpdate, value) => {
     if (!fieldToUpdate) {
         throw Error("field must be defined");
@@ -8,5 +11,9 @@ module.exports.execute = async (user, fieldToUpdate, value) => {
     }
 
     user.set(fieldToUpdate, value);
-    return await user.save(null, { useMasterKey: true });
+    await user.save(null, { useMasterKey: true });
+
+    const updatedProfile = await UserService.getByEmail(user.get('email'));
+
+    return User.mapFromParse(user, updatedProfile);
 };

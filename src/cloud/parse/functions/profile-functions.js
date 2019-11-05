@@ -14,9 +14,9 @@ Parse.Cloud.define('Profile_create', async (req) => {
     }
 });
 
-Parse.Cloud.define('Profile_update', async (req) => {
+Parse.Cloud.define('Profile_update', (req) => {
     try {
-        return await UpdateProfileUc.execute(req.user, req.params.field, req.params.value);
+        return UpdateProfileUc.execute(req.user, req.params.field, req.params.value);
     } catch (e) {
         console.log(e);
         throw e;

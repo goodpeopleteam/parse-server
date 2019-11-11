@@ -80,24 +80,6 @@ const createUser = async (p) => {
     return userRef;
 };
 
-const addMessageToChatRoom = async (chatRoomPath, senderEmail, message) => {
-    const sentAt = Date.parse(message.sent_at);
-    const chatRoom = db.doc(chatRoomPath);
-
-    const messagesCollection = chatRoom
-        .collection('messages');
-
-    const messageReference = await messagesCollection
-        .doc(sentAt.toString());
-
-    return await messageReference.set({
-        'idFrom': senderEmail,
-        'timestamp': sentAt,
-        'content': message.parts[0].body,
-        'type': 0
-    }, { merge: true });
-};
-
 const mapToFirebaseUser = p => {
     return {
         email: p.email,
@@ -111,6 +93,5 @@ module.exports = {
     createUser,
     createChatRoom,
     addChatRoomToUser,
-    addMessageToChatRoom,
     getChatRoom
 };

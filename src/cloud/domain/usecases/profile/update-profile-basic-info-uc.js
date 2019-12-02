@@ -1,4 +1,5 @@
 const User = require('../../model/User');
+const UserService = require("../../service/UserService");
 
 module.exports.execute = async (user, params) => {
     if (!params) {
@@ -9,5 +10,9 @@ module.exports.execute = async (user, params) => {
     user.set(User.FirstNameKey, params.firstName);
     user.set(User.LastNameKey, params.lastName);
 
-    return await user.save(null, { useMasterKey: true });
+    await user.save(null, { useMasterKey: true });
+
+    const updatedProfile = await UserService.getByEmail(params.email);
+
+    return User.mapFromParse(user, updatedProfile);
 };

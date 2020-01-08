@@ -6,8 +6,11 @@ const firstNameKey = 'firstName';
 const lastNameKey = 'lastName';
 
 function getUserTalents(x) {
-    if (x.get('talents'))
-        return x.get('talents').map(Talent.map);
+    if (x.get('talents')) {
+        return x.get('talents')
+            .filter(x => !!x.get('name'))
+            .map(Talent.map);
+    }
 
     if (x.get('skills')) {
         return x.get('skills').map(t => {

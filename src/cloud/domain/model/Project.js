@@ -2,11 +2,16 @@ const User = require('./User');
 const Talent = require("./Talent");
 
 function getRequiredTalents(project) {
-    if(project.get('requiredTalents'))
-        return project.get('requiredTalents').map(Talent.map);
+    if (project.get('requiredTalents')) {
+        return project.get('requiredTalents')
+            .filter(x => !!x.get('name'))
+            .map(Talent.map);
+    }
 
-    if(project.get('skillsNeeded'))
-        return project.get('skillsNeeded').map(s => { return { name: s }});
+    if (project.get('skillsNeeded'))
+        return project.get('skillsNeeded').map(s => {
+            return { name: s }
+        });
 
     return [];
 }

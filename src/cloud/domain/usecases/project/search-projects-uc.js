@@ -25,10 +25,10 @@ module.exports.execute = async (loggedUser, term) => {
 
     const compoundQuery = Parse.Query.or(...queries);
     compoundQuery.include('user');
+    compoundQuery.include('user.talents');
     compoundQuery.include('requiredTalents');
 
     const projects = await compoundQuery.find({ useMasterKey: true });
-
 
     return projects.map(p => Project.mapFromParseV1(p, loggedUser));
 };

@@ -17,7 +17,7 @@
     "firebase-functions": "3.1.0",    
     "jsrsasign": "8.0.12",
     "lodash": "4.17.14",
-    "node-fetch": "2.6.0",
+    "node-fetch": "2.6.1",
     "parse-server": "3.6.0",
     "simple-parse-smtp-adapter": "1.0.9"
   },
